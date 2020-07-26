@@ -1,0 +1,31 @@
+{
+  "name": "sgraildata",
+  "version": "1.0.0",
+  "description": "Singapore Rail data",
+  "keywords": [
+    "singapore",
+    "rail",
+    "train",
+    "subway",
+    "metro",
+    "mrt",
+    "lrt",
+    "data"
+  ],
+  "author": "Lim Chee Aun <cheeaun@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@turf/center-of-mass": "^6.0.1",
+    "@turf/clean-coords": "^6.0.1",
+    "@turf/distance": "^6.0.1",
+    "@turf/helpers": "^6.1.4",
+    "@turf/nearest-point": "^6.0.1",
+    "@turf/rewind": "^5.1.5",
+    "@turf/simplify": "^5.1.5",
+    "@turf/truncate": "^6.0.1",
+    "chaikin": "^1.0.0",
+    "cheerio": "^1.0.0-rc.3",
+    "color-namer": "^1.4.0",
+    "got": "^11.5.0"
+  }
+}
