@@ -9,7 +9,6 @@ const {
 const truncate = require('@turf/truncate').default;
 const centerOfMass = require('@turf/center-of-mass').default;
 const nearestPoint = require('@turf/nearest-point').default;
-const cleanCoords = require('@turf/clean-coords').default;
 const rewind = require('@turf/rewind').default;
 const simplify = require('@turf/simplify').default;
 const namer = require('color-namer');
@@ -44,14 +43,32 @@ function color2Name(color) {
 }
 
 const codesOrder = ['NS', 'EW', 'NE', 'CC', 'DT'];
+function sortStationCodes(a, b) {
+  const aCode = a.match(/[a-z]+/i)[0];
+  const bCode = b.match(/[a-z]+/i)[0];
+  let aIndex = codesOrder.indexOf(aCode);
+  let bIndex = codesOrder.indexOf(bCode);
+  if (aIndex === -1) aIndex = 99;
+  if (bIndex === -1) bIndex = 99;
+  return aIndex - bIndex;
+}
 function stationName2Codes(name) {
+  const cleanName = name
+    .replace(/(l|m)rt/i, '')
+    .replace(/stat?ion/i, '')
+    .trim();
   const found = codesData.filter((d) => {
     const stnName = d.STN_NAME.trim()
       .replace(/\s*(m|l)rt\s+station.*$/i, '')
       .toLowerCase();
-    return name.toLowerCase().trim() === stnName;
+    const lowerCleanName = cleanName.toLowerCase();
+    return (
+      lowerCleanName === stnName ||
+      lowerCleanName.replace(/road/i, '').trim() ===
+        stnName.replace(/road/i, '').trim() // special case for Tuas West Road
+    );
   });
-  if (!found.length) console.log('NOT FOUND', name);
+  if (!found.length) console.log('NOT FOUND', cleanName);
   let codes;
   if (found.length === 1) {
     codes = found[0].STN_NO.split('/').map((s) => s.trim());
@@ -61,15 +78,7 @@ function stationName2Codes(name) {
       .flat() // Flatten
       .filter((item, index, arr) => arr.indexOf(item) === index); // Remove dups
   }
-  codes.sort((a, b) => {
-    const aCode = a.match(/[a-z]+/i)[0];
-    const bCode = b.match(/[a-z]+/i)[0];
-    let aIndex = codesOrder.indexOf(aCode);
-    let bIndex = codesOrder.indexOf(bCode);
-    if (aIndex === -1) aIndex = 99;
-    if (bIndex === -1) bIndex = 99;
-    return aIndex - bIndex;
-  });
+  codes.sort(sortStationCodes);
   return codes;
 }
 
@@ -242,19 +251,25 @@ const exits = exitsData.features
     } = f;
     if (/^null/i.test(EXIT_CODE)) return;
 
-    const station_codes = STN_NO.split('/').map((s) => s.trim());
+    let codes = stationName2Codes(STN_NAME);
+    if (!codes.length) {
+      codes = STN_NO.split('/').map((s) => s.trim());
+    }
+    codes.sort(sortStationCodes);
 
-    if (station_codes.includes('NS9') && /[a-z]/i.test(EXIT_CODE)) {
+    if (codes.includes('NS9') && /[a-z]/i.test(EXIT_CODE)) {
       // Deprecated in favor of 123s https://landtransportguru.net/woodlands-station/
       return;
     }
+
+    const joinedCodes = codes.join('-');
 
     const props = {
       stop_type: 'entrance',
       network: 'entrance',
       name: EXIT_CODE.toUpperCase(),
       // Custom
-      station_codes,
+      station_codes: joinedCodes,
     };
     const opts = {
       id: hash(STN_NAME + EXIT_CODE),
