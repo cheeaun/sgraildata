@@ -15,6 +15,8 @@
   "author": "Lim Chee Aun <cheeaun@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@mapbox/polyline": "^1.1.1",
+    "@turf/along": "^6.0.1",
     "@turf/center-of-mass": "^6.0.1",
     "@turf/clean-coords": "^6.0.1",
     "@turf/distance": "^6.0.1",
@@ -26,6 +28,7 @@
     "chaikin": "^1.0.0",
     "cheerio": "^1.0.0-rc.3",
     "color-namer": "^1.4.0",
+    "dotenv": "^8.2.0",
     "got": "^11.5.0"
   }
 }
