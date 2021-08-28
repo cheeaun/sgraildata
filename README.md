@@ -8,6 +8,8 @@ This is a data-only repository to complement [RailRouter SG](https://github.com/
 
 It's in the `/data` folder.
 
+Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
+
 ## Notes
 
 - `id`s are not guaranteed to be unique
@@ -30,7 +32,9 @@ It's in the `/data` folder.
 - Master Plan 2019 Rail Station layer: https://data.gov.sg/dataset/master-plan-2019-rail-station-layer
 - Station codes: https://www.mytransport.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (`SHP` file converted to `JSON records` on https://mapshaper.org/)
 - A point representation to indicate the location of the MRT station: https://www.mytransport.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip via https://www.mytransport.sg/content/mytransport/home/dataMall/static-data.html
+- Line for Thomson-East Coast Line from OSM:
+  - Run `node scripts/fetch-tel-lines`
 
 ## Generate final data
 
-- Run `node scripts/build-geojson.js`
+- Run `node scripts/build-geojson`
