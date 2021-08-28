@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- Add Phase 2 of Thomson-East Coast Line (only stations, buildings and lines, no exits)
+
 ## 1.0.1
 
 - Fix wrong `station_codes` format
