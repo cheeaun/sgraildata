@@ -977,7 +977,8 @@
 	},
 	{
 		"codes": [
-			"CC17"
+			"CC17",
+			"TE9"
 		],
 		"name": "Caldecott",
 		"name_zh_Hans": "加利谷",
@@ -990,7 +991,7 @@
 			"CC19",
 			"DT9"
 		],
-		"name": "Botanic Gardens • Kebun Bunga",
+		"name": "Botanic Gardens",
 		"name_zh_Hans": "植物园",
 		"name_ta": "பூ மலை",
 		"title": "Botanic Gardens MRT station",
@@ -1196,7 +1197,7 @@
 			"DT9",
 			"CC19"
 		],
-		"name": "Botanic Gardens • Kebun Bunga",
+		"name": "Botanic Gardens",
 		"name_zh_Hans": "植物园",
 		"name_ta": "பூ மலை",
 		"title": "Botanic Gardens MRT station",
@@ -1505,6 +1506,57 @@
 	},
 	{
 		"codes": [
+			"TE4"
+		],
+		"name": "Springleaf",
+		"name_zh_Hans": "春叶",
+		"name_ta": "ஸ்பிரிங்லீஃவ்",
+		"title": "Springleaf MRT station",
+		"url": "/wiki/Springleaf_MRT_station"
+	},
+	{
+		"codes": [
+			"TE5"
+		],
+		"name": "Lentor",
+		"name_zh_Hans": "伦多",
+		"name_ta": "லென்ட்டோர்",
+		"title": "Lentor MRT station",
+		"url": "/wiki/Lentor_MRT_station"
+	},
+	{
+		"codes": [
+			"TE6"
+		],
+		"name": "Mayflower",
+		"name_zh_Hans": "美华",
+		"name_ta": "மேஃபிளவர்",
+		"title": "Mayflower MRT station",
+		"url": "/wiki/Mayflower_MRT_station"
+	},
+	{
+		"codes": [
+			"TE7"
+		],
+		"name": "Bright Hill",
+		"name_zh_Hans": "光明山",
+		"name_ta": "பிரைட் ஹில்",
+		"title": "Bright Hill MRT station",
+		"url": "/wiki/Bright_Hill_MRT_station"
+	},
+	{
+		"codes": [
+			"TE8"
+		],
+		"name": "Upper Thomson",
+		"name_zh_Hans": "汤申路上段[19]",
+		"name_ta": "அப்பர் தாம்சன்",
+		"title": "Upper Thomson MRT station",
+		"url": "/wiki/Upper_Thomson_MRT_station"
+	},
+	{
+		"codes": [
+			"TE9",
 			"CC17"
 		],
 		"name": "Caldecott",
