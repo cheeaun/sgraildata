@@ -9,8 +9,7 @@ const {
 const truncate = require('@turf/truncate').default;
 const centerOfMass = require('@turf/center-of-mass').default;
 const nearestPoint = require('@turf/nearest-point').default;
-const rewind = require('@turf/rewind').default;
-const simplify = require('@turf/simplify').default;
+const { rewind, simplify } = require('@turf/turf');
 const namer = require('color-namer');
 const { chaikin } = require('chaikin');
 
@@ -22,6 +21,7 @@ const stationData = readFile(
   './data/raw/master-plan-2019-rail-station-layer-geojson.geojson',
 );
 const exitsData = readFile('./data/raw/TrainStationExit06032020.json');
+const telLine = readFile('./data/raw/tel-line.json');
 
 // https://github.com/darkskyapp/string-hash/
 function hash(str) {
@@ -90,6 +90,13 @@ function stationCodes2Wikipedia(codes) {
   });
 }
 
+function stationName2Wikipedia(name) {
+  return wikipediaData.find((d) => {
+    const lowerName = d.name.toLowerCase().trim();
+    return lowerName === name.toLowerCase().trim();
+  });
+}
+
 const colorMap = {
   NE: 'purple',
   DT: 'blue',
@@ -109,135 +116,159 @@ const colorMap = {
 };
 const code2Color = (code) =>
   colorMap[code.match(/[a-z]+/i)[0].toUpperCase()] || 'gray';
+const validCodes = Object.keys(colorMap);
+
+const filterInvalidCodes = (codes) => {
+  return codes.filter((c) =>
+    validCodes.includes(c.toUpperCase().replace(/\d+$/, '')),
+  );
+};
 
 const { stops, routes } = routesData;
 
 // STATIONS
 console.log('Generate Stations...');
 const stationCodes = [];
-const stations = Object.values(stops).map((s) => {
-  const { name, coords, brands } = s;
+const stations = Object.values(stops)
+  .map((s) => {
+    const { name, coords, brands } = s;
 
-  const codes = stationName2Codes(name);
-  const wikipedia = stationCodes2Wikipedia(codes);
-  const { title, name_zh_Hans, name_ta, url } = wikipedia;
+    // const codes = stationName2Codes(name);
+    // const wikipedia = stationCodes2Wikipedia(codes);
+    const wikipedia = stationName2Wikipedia(name);
+    if (!wikipedia) throw new Error(`No Wikipedia for ${name}`);
+    const { codes: _codes, title, name_zh_Hans, name_ta, url } = wikipedia;
+    const codes = filterInvalidCodes(_codes).sort(sortStationCodes);
 
-  const joinedCodes = codes.join('-');
-  stationCodes.push(joinedCodes);
+    const joinedCodes = codes.join('-');
+    stationCodes.push(joinedCodes);
 
-  const p = point(
-    coords.reverse(),
-    {
-      name,
-      'name_zh-Hans': name_zh_Hans,
-      name_ta,
-      network: brands.map(brand2Network).join('.'),
-      // Custom
-      network_count: codes.length,
-      station_codes: joinedCodes,
-      station_colors: codes
-        .map((c) => c.replace(/\d+$/, ''))
-        .map(code2Color)
-        .join('-'),
-      wikipedia: `en:${title}`, // https://wiki.openstreetmap.org/wiki/Key:wikipedia
-      wikipedia_slug: url.replace(/^.*\/wiki\//i, ''),
-      // Follow Mapbox
-      stop_type: 'station',
-      mode: 'metro_rail',
-    },
-    {
-      id: hash(joinedCodes),
-    },
-  );
-  return p;
-});
+    const p = point(
+      coords.reverse(),
+      {
+        name,
+        'name_zh-Hans': name_zh_Hans,
+        name_ta,
+        network: brands.map(brand2Network).join('.'),
+        // Custom
+        network_count: codes.length,
+        station_codes: joinedCodes,
+        station_colors: codes
+          .map((c) => c.replace(/\d+$/, ''))
+          .map(code2Color)
+          .join('-'),
+        wikipedia: `en:${title}`, // https://wiki.openstreetmap.org/wiki/Key:wikipedia
+        wikipedia_slug: url.replace(/^.*\/wiki\//i, ''),
+        // Follow Mapbox
+        stop_type: 'station',
+        mode: 'metro_rail',
+      },
+      {
+        id: hash(joinedCodes),
+      },
+    );
+    return p;
+  })
+  .sort((a, b) => a.properties.name.localeCompare(b.properties.name));
+
+stationCodes.sort((a, b) => a.localeCompare(b));
 
 // LINES
 console.log('Generate Lines...');
-const lines = routes.map((r) => {
-  const { live_line_code, color, brand, long_name, patterns } = r;
+const lines = routes
+  .map((r) => {
+    const { live_line_code, color, brand, long_name, patterns } = r;
 
-  // Always get longest one first
-  patterns.sort((a, b) => b.stop_points.length - a.stop_points.length);
-  const diffPatterns = [patterns[0]];
-  const diffStopPoints = patterns[0].stop_points.map((p) => p.id.toLowerCase());
+    // Always get longest one first
+    patterns.sort((a, b) => b.stop_points.length - a.stop_points.length);
+    const diffPatterns = [patterns[0]];
+    const diffStopPoints = patterns[0].stop_points.map((p) =>
+      p.id.toLowerCase(),
+    );
 
-  for (let i = 1, l = patterns.length; i < l; i++) {
-    let addPattern = 0;
-    let p2;
-    for (let j = 0, lj = diffPatterns.length; j < lj; j++) {
-      const p1 = diffPatterns[j];
-      p2 = patterns[i];
-      const sp1 = p1.stop_points.map((p) => p.id.toLowerCase());
-      const sp2 = p2.stop_points.map((p) => p.id.toLowerCase());
-      if (
-        sp1.join().includes(sp2.join()) ||
-        sp1.join().includes(sp2.reverse().join()) ||
-        (diffStopPoints.includes(p2.stop_points[0].id.toLowerCase()) &&
-          diffStopPoints.includes(
-            p2.stop_points[p2.stop_points.length - 1].id.toLowerCase(),
-          ))
-      ) {
-        // console.log(p1.name, p2.name);
-        // do nothing
-      } else {
-        ++addPattern;
+    for (let i = 1, l = patterns.length; i < l; i++) {
+      let addPattern = 0;
+      let p2;
+      for (let j = 0, lj = diffPatterns.length; j < lj; j++) {
+        const p1 = diffPatterns[j];
+        p2 = patterns[i];
+        const sp1 = p1.stop_points.map((p) => p.id.toLowerCase());
+        const sp2 = p2.stop_points.map((p) => p.id.toLowerCase());
+        if (
+          sp1.join().includes(sp2.join()) ||
+          sp1.join().includes(sp2.reverse().join()) ||
+          (diffStopPoints.includes(p2.stop_points[0].id.toLowerCase()) &&
+            diffStopPoints.includes(
+              p2.stop_points[p2.stop_points.length - 1].id.toLowerCase(),
+            ))
+        ) {
+          // console.log(p1.name, p2.name);
+          // do nothing
+        } else {
+          ++addPattern;
 
-        // Chop off the path, prevent overlapping with original path
-        if (p1.stop_points[0].id === p2.stop_points[0].id) {
-          for (let k = 0, lk = p1.stop_points.length; k < lk; k++) {
-            if (
-              p2.stop_points[k] &&
-              p1.stop_points[k].id !== p2.stop_points[k].id
-            ) {
-              const { path_index } = p2.stop_points[k - 1];
-              p2.stop_points = p2.stop_points.slice(k - 1);
-              p2.path = p2.path.slice(path_index);
+          // Chop off the path, prevent overlapping with original path
+          if (p1.stop_points[0].id === p2.stop_points[0].id) {
+            for (let k = 0, lk = p1.stop_points.length; k < lk; k++) {
+              if (
+                p2.stop_points[k] &&
+                p1.stop_points[k].id !== p2.stop_points[k].id
+              ) {
+                const { path_index } = p2.stop_points[k - 1];
+                p2.stop_points = p2.stop_points.slice(k - 1);
+                p2.path = p2.path.slice(path_index);
+              }
             }
+            if (!p2.path.length) addPattern--;
           }
-          if (!p2.path.length) addPattern--;
         }
       }
+      if (addPattern === diffPatterns.length) {
+        // console.log(
+        //   diffPatterns.map((p) => p.name),
+        //   p2.name,
+        // );
+        diffPatterns.push(p2);
+        diffStopPoints.push(...p2.stop_points.map((p) => p.id.toLowerCase()));
+      }
     }
-    if (addPattern === diffPatterns.length) {
-      // console.log(
-      //   diffPatterns.map((p) => p.name),
-      //   p2.name,
-      // );
-      diffPatterns.push(p2);
-      diffStopPoints.push(...p2.stop_points.map((p) => p.id.toLowerCase()));
+    // console.log({ long_name, diffPatterns });
+
+    let lines = diffPatterns.map((p) => p.path.map((c) => c.reverse()));
+
+    if (/thomson/i.test(long_name)) {
+      // Special case for TEL
+      lines = [telLine];
     }
-  }
-  // console.log({ long_name, diffPatterns });
 
-  const lines = diffPatterns.map((p) => p.path.map((c) => c.reverse()));
-  const props = {
-    name: long_name.trim(),
-    line_color: color2Name(color),
-    network: brand2Network(brand),
-    // Follow Mapbox
-    mode: 'metro_rail',
-  };
-  const opts = {
-    id: hash(live_line_code),
-  };
+    const props = {
+      name: long_name.trim(),
+      line_color: color2Name(color),
+      network: brand2Network(brand),
+      // Follow Mapbox
+      mode: 'metro_rail',
+    };
+    const opts = {
+      id: hash(live_line_code),
+    };
 
-  let l;
-  // console.log({ long_name, c: lines.length });
-  if (lines.length === 1) {
-    l = lineString(chaikin(lines[0], 3), props, opts);
-  } else {
-    l = multiLineString(
-      lines.map((l) => chaikin(l, 3)),
-      props,
-      opts,
+    let l;
+    // console.log({ long_name, c: lines.length });
+    if (lines.length === 1) {
+      l = lineString(chaikin(lines[0], 3), props, opts);
+    } else {
+      l = multiLineString(
+        lines.map((l) => chaikin(l, 3)),
+        props,
+        opts,
+      );
+    }
+    return truncate(
+      simplify(l, { tolerance: 0.000005, highQuality: true, mutate: true }),
+      { mutate: true },
     );
-  }
-  return truncate(
-    simplify(l, { tolerance: 0.000005, highQuality: true, mutate: true }),
-    { mutate: true },
-  );
-});
+  })
+  .sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
 // console.log({ lines: lines.map((l) => l.properties) });
 
@@ -280,7 +311,10 @@ const exits = exitsData.features
     const e = feature(truncGeometry, props, opts);
     return e;
   })
-  .filter(Boolean);
+  .filter(Boolean)
+  .sort((a, b) =>
+    a.properties.station_codes.localeCompare(b.properties.station_codes),
+  );
 
 // STATION BUILDINGS
 console.log('Generate Station Buildings...');
@@ -294,44 +328,53 @@ const buildings = stationData.features
     } = f;
 
     const centerPoint = centerOfMass(geometry);
+    // nearestPoint retuns value in km unit
     const nearPoint = nearestPoint(centerPoint, exitsCollection);
-    const { distanceToPoint } = nearPoint.properties;
+    const { distanceToPoint: distPoint2Exits } = nearPoint.properties;
 
-    if (distanceToPoint < 0.2) {
-      // kilometer
+    const nearStation = nearestPoint(centerPoint, stationsCollection);
+    let nearestStation;
 
-      const nearStation = nearestPoint(centerPoint, stationsCollection);
-
-      const name = Description.match(
-        /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,
-      )[2].toLowerCase();
-      // console.log({ name, distanceToPoint });
-
-      const groundLevel = Description.match(
-        />((under|above)ground)</i,
-      )[1].toLowerCase();
-      const isAboveGround = groundLevel === 'aboveground';
-
-      const props = {
-        station_codes: nearStation.properties.station_codes,
-        underground: !isAboveGround,
-        type: 'subway',
-      };
-      const opts = {
-        id: hash(name),
-      };
-      const truncGeometry = truncate(geometry, {
-        precision: 8,
-        coordinates: 2,
-      });
-      const b = rewind(feature(truncGeometry, props, opts));
-      return b;
+    if (distPoint2Exits < 0.2) {
+      nearestStation = nearStation;
     } else {
-      // console.log({ Name, distanceToPoint });
-      return null;
+      const { distanceToPoint: distPoint2Station } = nearStation.properties;
+      if (distPoint2Station < 0.3) {
+        nearestStation = nearStation;
+      }
     }
+
+    if (!nearestStation) return null;
+
+    const name = Description.match(
+      /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,
+    )[2].toLowerCase();
+    // console.log({ name, distanceToPoint });
+
+    const groundLevel = Description.match(
+      />((under|above)ground)</i,
+    )[1].toLowerCase();
+    const isAboveGround = groundLevel === 'aboveground';
+
+    const props = {
+      station_codes: nearestStation.properties.station_codes,
+      underground: !isAboveGround,
+      type: 'subway',
+    };
+    const opts = {
+      id: hash(name),
+    };
+    const truncGeometry = truncate(geometry, {
+      precision: 8,
+      coordinates: 2,
+    });
+    const b = rewind(feature(truncGeometry, props, opts));
+    return b;
   })
-  .filter(Boolean);
+  .filter(Boolean)
+  .sort((a, b) =>
+    a.properties.station_codes.localeCompare(b.properties.station_codes),
+  );
 
 const geoJSON = featureCollection([
   ...stations,

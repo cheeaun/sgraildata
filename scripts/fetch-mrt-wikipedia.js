@@ -7,7 +7,7 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', {
   responseType: 'text',
 }).then((res) => {
   const $ = cheerio.load(res.body);
-  const $td1s = $('#mf-section-2 .wikitable tr td:nth-child(3)');
+  const $td1s = $('#mf-section-2 .wikitable tr td:nth-child(2)');
 
   $td1s.each((i, td1) => {
     const $td1 = $(td1);
@@ -15,9 +15,9 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', {
     const url = $a.length ? $a.attr('href') : null;
     const title =
       $a.length && $a.attr('title') ? $a.attr('title').trim() : null;
-    const name = $td1.text().trim();
+    const name = $td1.find('a').text().trim() || $td1.text().trim();
 
-    const $tdFirst = $td1.prev().prev('td');
+    const $tdFirst = $td1.prev('td');
     const $codes = $tdFirst.find('b');
 
     // Only care about current stations, not future ones

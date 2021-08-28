@@ -17,7 +17,10 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_LRT_stations', {
     // Only care about current stations, not future ones
     // If first column is empty, means it's a future station
     if ($codes.length) {
-      const codes = $codes.map((i, el) => $(el).text().trim()).get();
+      const codes = $codes
+        .map((i, el) => $(el).text().trim())
+        .get()
+        .sort();
 
       let $td1 = $tdFirst.next('td');
       if ($td1.attr('rowspan')) {
