@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1
+
+- Fix Upper Thomson MRT's chinese name containing `[19]`
+- Fix lines from OSM for TEL1 and TEL2
+- Remove duplicates from `wikipedia-mrt.json`
+
 ## 2.0.0
 
 - Add Phase 2 of Thomson-East Coast Line (only stations, buildings and lines, no exits)
