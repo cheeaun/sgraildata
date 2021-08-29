@@ -405,28 +405,6 @@
 	},
 	{
 		"codes": [
-			"EW13",
-			"NS25"
-		],
-		"name": "City Hall",
-		"name_zh_Hans": "政府大厦",
-		"name_ta": "நகர மண்டபம்",
-		"title": "City Hall MRT station",
-		"url": "/wiki/City_Hall_MRT_station"
-	},
-	{
-		"codes": [
-			"EW14",
-			"NS26"
-		],
-		"name": "Raffles Place",
-		"name_zh_Hans": "莱佛士坊",
-		"name_ta": "ராஃபிள்ஸ் பிளேஸ்",
-		"title": "Raffles Place MRT station",
-		"url": "/wiki/Raffles_Place_MRT_station"
-	},
-	{
-		"codes": [
 			"EW15"
 		],
 		"name": "Tanjong Pagar",
@@ -516,17 +494,6 @@
 		"name_ta": "கிளிமெண்டி",
 		"title": "Clementi MRT station",
 		"url": "/wiki/Clementi_MRT_station"
-	},
-	{
-		"codes": [
-			"EW24",
-			"NS1"
-		],
-		"name": "Jurong East",
-		"name_zh_Hans": "裕廊东",
-		"name_ta": "ஜூரோங் கிழக்கு",
-		"title": "Jurong East MRT station",
-		"url": "/wiki/Jurong_East_MRT_station"
 	},
 	{
 		"codes": [
@@ -652,17 +619,6 @@
 	},
 	{
 		"codes": [
-			"NE3",
-			"EW16"
-		],
-		"name": "Outram Park",
-		"name_zh_Hans": "欧南园",
-		"name_ta": "ஊட்ரம் பார்க்",
-		"title": "Outram Park MRT station",
-		"url": "/wiki/Outram_Park_MRT_station"
-	},
-	{
-		"codes": [
 			"NE4",
 			"DT19"
 		],
@@ -681,18 +637,6 @@
 		"name_ta": "கிளார்க் கீ",
 		"title": "Clarke Quay MRT station",
 		"url": "/wiki/Clarke_Quay_MRT_station"
-	},
-	{
-		"codes": [
-			"NE6",
-			"NS24",
-			"CC1"
-		],
-		"name": "Dhoby Ghaut",
-		"name_zh_Hans": "多美歌",
-		"name_ta": "டோபி காட்",
-		"title": "Dhoby Ghaut MRT station",
-		"url": "/wiki/Dhoby_Ghaut_MRT_station"
 	},
 	{
 		"codes": [
@@ -810,18 +754,6 @@
 	},
 	{
 		"codes": [
-			"CC1",
-			"NS24",
-			"NE6"
-		],
-		"name": "Dhoby Ghaut",
-		"name_zh_Hans": "多美歌",
-		"name_ta": "டோபி காட்",
-		"title": "Dhoby Ghaut MRT station",
-		"url": "/wiki/Dhoby_Ghaut_MRT_station"
-	},
-	{
-		"codes": [
 			"CC2"
 		],
 		"name": "Bras Basah",
@@ -893,17 +825,6 @@
 	},
 	{
 		"codes": [
-			"CC9",
-			"EW8"
-		],
-		"name": "Paya Lebar",
-		"name_zh_Hans": "巴耶利峇",
-		"name_ta": "பாய லேபார்",
-		"title": "Paya Lebar MRT station",
-		"url": "/wiki/Paya_Lebar_MRT_station"
-	},
-	{
-		"codes": [
 			"CC10",
 			"DT26"
 		],
@@ -935,17 +856,6 @@
 	},
 	{
 		"codes": [
-			"CC13",
-			"NE12"
-		],
-		"name": "Serangoon",
-		"name_zh_Hans": "实龙岗",
-		"name_ta": "சிராங்கூன்",
-		"title": "Serangoon MRT station",
-		"url": "/wiki/Serangoon_MRT_station"
-	},
-	{
-		"codes": [
 			"CC14"
 		],
 		"name": "Lorong Chuan",
@@ -953,17 +863,6 @@
 		"name_ta": "லோரோங் சுவான்",
 		"title": "Lorong Chuan MRT station",
 		"url": "/wiki/Lorong_Chuan_MRT_station"
-	},
-	{
-		"codes": [
-			"CC15",
-			"NS17"
-		],
-		"name": "Bishan",
-		"name_zh_Hans": "碧山",
-		"name_ta": "பீஷான்",
-		"title": "Bishan MRT station",
-		"url": "/wiki/Bishan_MRT_station"
 	},
 	{
 		"codes": [
@@ -1016,17 +915,6 @@
 		"name_ta": "ஹாலந்து வில்லேஜ்",
 		"title": "Holland Village MRT station",
 		"url": "/wiki/Holland_Village_MRT_station"
-	},
-	{
-		"codes": [
-			"CC22",
-			"EW21"
-		],
-		"name": "Buona Vista",
-		"name_zh_Hans": "波那维斯达",
-		"name_ta": "புவன விஸ்தா",
-		"title": "Buona Vista MRT station",
-		"url": "/wiki/Buona_Vista_MRT_station"
 	},
 	{
 		"codes": [
@@ -1090,17 +978,6 @@
 	},
 	{
 		"codes": [
-			"CC29",
-			"NE1"
-		],
-		"name": "HarbourFront",
-		"name_zh_Hans": "港湾",
-		"name_ta": "துறைமுகம்",
-		"title": "HarbourFront MRT station",
-		"url": "/wiki/HarbourFront_MRT_station"
-	},
-	{
-		"codes": [
 			"CE1",
 			"DT16"
 		],
@@ -1109,17 +986,6 @@
 		"name_ta": "பேஃபிரண்ட்",
 		"title": "Bayfront MRT station",
 		"url": "/wiki/Bayfront_MRT_station"
-	},
-	{
-		"codes": [
-			"CE2",
-			"NS27"
-		],
-		"name": "Marina Bay",
-		"name_zh_Hans": "滨海湾",
-		"name_ta": "மரீனா பே",
-		"title": "Marina Bay MRT station",
-		"url": "/wiki/Marina_Bay_MRT_station"
 	},
 	{
 		"codes": [
@@ -1194,17 +1060,6 @@
 	},
 	{
 		"codes": [
-			"DT9",
-			"CC19"
-		],
-		"name": "Botanic Gardens",
-		"name_zh_Hans": "植物园",
-		"name_ta": "பூ மலை",
-		"title": "Botanic Gardens MRT station",
-		"url": "/wiki/Botanic_Gardens_MRT_station"
-	},
-	{
-		"codes": [
 			"DT10"
 		],
 		"name": "Stevens",
@@ -1215,28 +1070,6 @@
 	},
 	{
 		"codes": [
-			"DT11",
-			"NS21"
-		],
-		"name": "Newton",
-		"name_zh_Hans": "纽顿",
-		"name_ta": "நியூட்டன்",
-		"title": "Newton MRT station",
-		"url": "/wiki/Newton_MRT_station"
-	},
-	{
-		"codes": [
-			"DT12",
-			"NE7"
-		],
-		"name": "Little India",
-		"name_zh_Hans": "小印度",
-		"name_ta": "லிட்டில் இந்தியா",
-		"title": "Little India MRT station",
-		"url": "/wiki/Little_India_MRT_station"
-	},
-	{
-		"codes": [
 			"DT13"
 		],
 		"name": "Rochor",
@@ -1244,39 +1077,6 @@
 		"name_ta": "ரோச்சோர்",
 		"title": "Rochor MRT station",
 		"url": "/wiki/Rochor_MRT_station"
-	},
-	{
-		"codes": [
-			"DT14",
-			"EW12"
-		],
-		"name": "Bugis",
-		"name_zh_Hans": "武吉士",
-		"name_ta": "பூகிஸ்",
-		"title": "Bugis MRT station",
-		"url": "/wiki/Bugis_MRT_station"
-	},
-	{
-		"codes": [
-			"DT15",
-			"CC4"
-		],
-		"name": "Promenade",
-		"name_zh_Hans": "宝门廊",
-		"name_ta": "புரொமனாட்",
-		"title": "Promenade MRT station",
-		"url": "/wiki/Promenade_MRT_station"
-	},
-	{
-		"codes": [
-			"DT16",
-			"CE1"
-		],
-		"name": "Bayfront",
-		"name_zh_Hans": "海湾舫",
-		"name_ta": "பேஃபிரண்ட்",
-		"title": "Bayfront MRT station",
-		"url": "/wiki/Bayfront_MRT_station"
 	},
 	{
 		"codes": [
@@ -1297,17 +1097,6 @@
 		"name_ta": "தெலுக் ஆயர்",
 		"title": "Telok Ayer MRT station",
 		"url": "/wiki/Telok_Ayer_MRT_station"
-	},
-	{
-		"codes": [
-			"DT19",
-			"NE4"
-		],
-		"name": "Chinatown",
-		"name_zh_Hans": "牛车水",
-		"name_ta": "சைனாடவுன்",
-		"title": "Chinatown MRT station",
-		"url": "/wiki/Chinatown_MRT_station"
 	},
 	{
 		"codes": [
@@ -1371,17 +1160,6 @@
 	},
 	{
 		"codes": [
-			"DT26",
-			"CC10"
-		],
-		"name": "MacPherson",
-		"name_zh_Hans": "麦波申",
-		"name_ta": "மெக்பர்சன்",
-		"title": "MacPherson MRT station",
-		"url": "/wiki/MacPherson_MRT_station"
-	},
-	{
-		"codes": [
 			"DT27"
 		],
 		"name": "Ubi",
@@ -1432,17 +1210,6 @@
 	},
 	{
 		"codes": [
-			"DT32",
-			"EW2"
-		],
-		"name": "Tampines",
-		"name_zh_Hans": "淡滨尼",
-		"name_ta": "தெம்பினிஸ்",
-		"title": "Tampines MRT station",
-		"url": "/wiki/Tampines_MRT_station"
-	},
-	{
-		"codes": [
 			"DT33"
 		],
 		"name": "Tampines East",
@@ -1463,17 +1230,6 @@
 	},
 	{
 		"codes": [
-			"DT35",
-			"CG1"
-		],
-		"name": "Expo",
-		"name_zh_Hans": "博览",
-		"name_ta": "எக்ஸ்போ",
-		"title": "Expo MRT station",
-		"url": "/wiki/Expo_MRT_station"
-	},
-	{
-		"codes": [
 			"TE1",
 			"RTS"
 		],
@@ -1482,17 +1238,6 @@
 		"name_ta": "உட்லண்ட்ஸ் நார்த்",
 		"title": "Woodlands North MRT station",
 		"url": "/wiki/Woodlands_North_MRT_station"
-	},
-	{
-		"codes": [
-			"TE2",
-			"NS9"
-		],
-		"name": "Woodlands",
-		"name_zh_Hans": "兀兰",
-		"name_ta": "ஊட்லண்ட்ஸ்",
-		"title": "Woodlands MRT station",
-		"url": "/wiki/Woodlands_MRT_station"
 	},
 	{
 		"codes": [
@@ -1549,157 +1294,10 @@
 			"TE8"
 		],
 		"name": "Upper Thomson",
-		"name_zh_Hans": "汤申路上段[19]",
+		"name_zh_Hans": "汤申路上段",
 		"name_ta": "அப்பர் தாம்சன்",
 		"title": "Upper Thomson MRT station",
 		"url": "/wiki/Upper_Thomson_MRT_station"
-	},
-	{
-		"codes": [
-			"TE9",
-			"CC17"
-		],
-		"name": "Caldecott",
-		"name_zh_Hans": "加利谷",
-		"name_ta": "கால்டிகாட்",
-		"title": "Caldecott MRT station",
-		"url": "/wiki/Caldecott_MRT_station"
-	},
-	{
-		"codes": [
-			"DT10"
-		],
-		"name": "Stevens",
-		"name_zh_Hans": "史蒂芬",
-		"name_ta": "ஸ்டீவன்ஸ்",
-		"title": "Stevens MRT station",
-		"url": "/wiki/Stevens_MRT_station"
-	},
-	{
-		"codes": [
-			"NS22"
-		],
-		"name": "Orchard",
-		"name_zh_Hans": "乌节",
-		"name_ta": "ஆர்ச்சர்ட்",
-		"title": "Orchard MRT station",
-		"url": "/wiki/Orchard_MRT_station"
-	},
-	{
-		"codes": [
-			"EW16",
-			"NE3"
-		],
-		"name": "Outram Park",
-		"name_zh_Hans": "欧南园",
-		"name_ta": "ஊட்ரம் பார்க்",
-		"title": "Outram Park MRT station",
-		"url": "/wiki/Outram_Park_MRT_station"
-	},
-	{
-		"codes": [
-			"NS27",
-			"CE2"
-		],
-		"name": "Marina Bay",
-		"name_zh_Hans": "滨海湾",
-		"name_ta": "மரீனா பே",
-		"title": "Marina Bay MRT station",
-		"url": "/wiki/Marina_Bay_MRT_station"
-	},
-	{
-		"codes": [
-			"CG2"
-		],
-		"name": "Changi Airport",
-		"name_zh_Hans": "樟宜机场",
-		"name_ta": "சாங்கி விமானநிலையம்",
-		"title": "Changi Airport MRT station",
-		"url": "/wiki/Changi_Airport_MRT_station"
-	},
-	{
-		"codes": [
-			"CG1",
-			"DT35"
-		],
-		"name": "Expo",
-		"name_zh_Hans": "博览",
-		"name_ta": "எக்ஸ்போ",
-		"title": "Expo MRT station",
-		"url": "/wiki/Expo_MRT_station"
-	},
-	{
-		"codes": [
-			"EW4",
-			"CG"
-		],
-		"name": "Tanah Merah",
-		"name_zh_Hans": "丹那美拉",
-		"name_ta": "தானா மேரா",
-		"title": "Tanah Merah MRT station",
-		"url": "/wiki/Tanah_Merah_MRT_station"
-	},
-	{
-		"codes": [
-			"NS4",
-			"BP1"
-		],
-		"name": "Choa Chu Kang",
-		"name_zh_Hans": "蔡厝港",
-		"name_ta": "சுவா சூ காங்",
-		"title": "Choa Chu Kang MRT/LRT station",
-		"url": "/wiki/Choa_Chu_Kang_MRT/LRT_station"
-	},
-	{
-		"codes": [
-			"EW27"
-		],
-		"name": "Boon Lay",
-		"name_zh_Hans": "文礼",
-		"name_ta": "பூன் லே",
-		"title": "Boon Lay MRT station",
-		"url": "/wiki/Boon_Lay_MRT_station"
-	},
-	{
-		"codes": [
-			"NS1",
-			"EW24"
-		],
-		"name": "Jurong East",
-		"name_zh_Hans": "裕廊东",
-		"name_ta": "ஜூரோங் கிழக்கு",
-		"title": "Jurong East MRT station",
-		"url": "/wiki/Jurong_East_MRT_station"
-	},
-	{
-		"codes": [
-			"EW1"
-		],
-		"name": "Pasir Ris",
-		"name_zh_Hans": "巴西立",
-		"name_ta": "பாசிர் ரிஸ்",
-		"title": "Pasir Ris MRT station",
-		"url": "/wiki/Pasir_Ris_MRT_station"
-	},
-	{
-		"codes": [
-			"NE14"
-		],
-		"name": "Hougang",
-		"name_zh_Hans": "后港",
-		"name_ta": "ஹவ்காங்",
-		"title": "Hougang MRT station",
-		"url": "/wiki/Hougang_MRT_station"
-	},
-	{
-		"codes": [
-			"NS16"
-		],
-		"name": "Ang Mo Kio",
-		"name_zh_Hans": "宏茂桥",
-		"name_ta": "அங் மோ கியோ",
-		"title": "Ang Mo Kio MRT station",
-		"url": "/wiki/Ang_Mo_Kio_MRT_station"
 	},
 	{
 		"codes": [
@@ -1710,16 +1308,5 @@
 		"name_ta": "ரிவியாரா",
 		"title": "Riviera MRT/LRT station",
 		"url": "/wiki/Riviera_MRT/LRT_station"
-	},
-	{
-		"codes": [
-			"NE17",
-			"PTC"
-		],
-		"name": "Punggol",
-		"name_zh_Hans": "榜鹅",
-		"name_ta": "பொங்கோல்",
-		"title": "Punggol MRT/LRT station",
-		"url": "/wiki/Punggol_MRT/LRT_station"
 	}
 ]
