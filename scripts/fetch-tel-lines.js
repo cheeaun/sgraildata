@@ -27,7 +27,8 @@ const extractLine = (body) => {
 const tel1Way = 768424508;
 const woodlandsNorthPoint = [103.785519, 1.448646];
 const tel2Way = 977168499;
-const caldecottPoint = [103.839991, 1.33768];
+const gardensByTheBayPoint = [103.868124, 1.279451];
+// const caldecottPoint = [103.839991, 1.33768];
 
 fetch(`https://www.openstreetmap.org/api/0.6/way/${tel1Way}/full.json`).then(
   (res) => {
@@ -53,7 +54,7 @@ fetch(`https://www.openstreetmap.org/api/0.6/way/${tel1Way}/full.json`).then(
       const startPoint2 = line2[0];
       const endPoint2 = nearestPointOnLine(
         lineString(line2),
-        point(caldecottPoint),
+        point(gardensByTheBayPoint),
       );
       const alteredLine2 = lineSlice(startPoint2, endPoint2, lineString(line2))
         .geometry.coordinates;

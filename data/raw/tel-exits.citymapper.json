@@ -1,0 +1,1084 @@
+{
+	"Havelock": [
+		{
+			"id": "CMStation_havelock_4_E44190",
+			"coords": [
+				1.286735,
+				103.833831
+			],
+			"station_id": "CMStation_havelock_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Zion Rd / Furama RiverFront Singapore"
+		},
+		{
+			"id": "CMStation_havelock_4_E44191",
+			"coords": [
+				1.28702,
+				103.833482
+			],
+			"station_id": "CMStation_havelock_4",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Jalan Bukit Ho Swee"
+		},
+		{
+			"id": "CMStation_havelock_4_E44192",
+			"coords": [
+				1.288805,
+				103.83334
+			],
+			"station_id": "CMStation_havelock_4",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Zion Rd / Kim Seng CC"
+		},
+		{
+			"id": "CMStation_havelock_4_E44193",
+			"coords": [
+				1.290173,
+				103.833976
+			],
+			"station_id": "CMStation_havelock_4",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Havelock Rd / Kim Seng Park"
+		},
+		{
+			"id": "CMStation_havelock_4_E44194",
+			"coords": [
+				1.289693,
+				103.833606
+			],
+			"station_id": "CMStation_havelock_4",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Havelock Rd"
+		}
+	],
+	"Woodlands": [
+		{
+			"id": "SingaporeStation_Woodlands_E10508",
+			"coords": [
+				1.436673115,
+				103.7865081
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Causeway Point"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E10509",
+			"coords": [
+				1.436696875,
+				103.7857356
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Woodlands Avenue 3"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E10510",
+			"coords": [
+				1.437243367,
+				103.7871082
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Woodlands Avenue 7"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E39603",
+			"coords": [
+				1.437540374,
+				103.7880055
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Woodlands Square\t"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E39604",
+			"coords": [
+				1.435843936,
+				103.7889643
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Blk 894B\t"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E39605",
+			"coords": [
+				1.434815175,
+				103.7890891
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "6",
+			"indicator": "6",
+			"name": "Blk 512\t"
+		},
+		{
+			"id": "SingaporeStation_Woodlands_E39606",
+			"coords": [
+				1.434495526,
+				103.7879768
+			],
+			"station_id": "SingaporeStation_Woodlands",
+			"short_name": "7",
+			"indicator": "7",
+			"name": "Woodlands Avenue 2 & 5"
+		}
+	],
+	"Shenton Way": [
+		{
+			"id": "CMStation_shenton_way_4_E44206",
+			"coords": [
+				1.277468,
+				103.851869
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Straits View"
+		},
+		{
+			"id": "CMStation_shenton_way_4_E44207",
+			"coords": [
+				1.277023,
+				103.850933
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Central Linear Park"
+		},
+		{
+			"id": "CMStation_shenton_way_4_E44208",
+			"coords": [
+				1.277025,
+				103.851976
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Marina One"
+		},
+		{
+			"id": "CMStation_shenton_way_4_E44209",
+			"coords": [
+				1.277889,
+				103.849852
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "6",
+			"indicator": "6",
+			"name": "UIC Building"
+		},
+		{
+			"id": "CMStation_shenton_way_4_E44210",
+			"coords": [
+				1.277639,
+				103.850099
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Park Street"
+		},
+		{
+			"id": "CMStation_shenton_way_4_E44211",
+			"coords": [
+				1.277645,
+				103.851002
+			],
+			"station_id": "CMStation_shenton_way_4",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Asia Square"
+		}
+	],
+	"Orchard": [
+		{
+			"id": "SingaporeStation_Orchard_E4232",
+			"coords": [
+				1.304031,
+				103.832763
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Wisma Atria / Ngee Ann City via Wisma Atria"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E4233",
+			"coords": [
+				1.30398,
+				103.83198
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "ION Orchard / Wheelock Place"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E4234",
+			"coords": [
+				1.304761,
+				103.832608
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Tang Plaza / Scotts Rd / Lucky Plaza"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E4235",
+			"coords": [
+				1.304278,
+				103.832533
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Orchard Rd / Wisma Atria "
+		},
+		{
+			"id": "SingaporeStation_Orchard_E4237",
+			"coords": [
+				1.303146,
+				103.832211
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "7",
+			"indicator": "7",
+			"name": "Orchard Boulevard / Orchard Turn"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44179",
+			"coords": [
+				1.304221,
+				103.831983
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "ION Orchard"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44180",
+			"coords": [
+				1.303661,
+				103.832069
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "6",
+			"indicator": "6",
+			"name": "ION Orchard (B1)"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44182",
+			"coords": [
+				1.302326,
+				103.83212
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "13",
+			"indicator": "13",
+			"name": "Orchard Boulevard"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44183",
+			"coords": [
+				1.302908,
+				103.830577
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "12",
+			"indicator": "12",
+			"name": "Paterson Rd"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44184",
+			"coords": [
+				1.304138,
+				103.830626
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "11",
+			"indicator": "11",
+			"name": "Orchard Boulevard / Wheelock Place / Shaw House"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44185",
+			"coords": [
+				1.304042,
+				103.831119
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "10",
+			"indicator": "10",
+			"name": "Paterson Rd"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44186",
+			"coords": [
+				1.303674,
+				103.831481
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "9",
+			"indicator": "9",
+			"name": "ION Orchard"
+		},
+		{
+			"id": "SingaporeStation_Orchard_E44187",
+			"coords": [
+				1.303522,
+				103.831688
+			],
+			"station_id": "SingaporeStation_Orchard",
+			"short_name": "8",
+			"indicator": "8",
+			"name": "ION Orchard"
+		}
+	],
+	"Upper Thomson": [
+		{
+			"id": "CMStation_upper_thomson_E43466",
+			"coords": [
+				1.355736575,
+				103.831833
+			],
+			"station_id": "CMStation_upper_thomson",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Bright Hill Drive"
+		},
+		{
+			"id": "CMStation_upper_thomson_E43467",
+			"coords": [
+				1.354833645,
+				103.8319162
+			],
+			"station_id": "CMStation_upper_thomson",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Thomson Plaza, Soo Chow Garden Road"
+		},
+		{
+			"id": "CMStation_upper_thomson_E43468",
+			"coords": [
+				1.354144566,
+				103.8339246
+			],
+			"station_id": "CMStation_upper_thomson",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Jalan Keli"
+		},
+		{
+			"id": "CMStation_upper_thomson_E43469",
+			"coords": [
+				1.35350301,
+				103.8337939
+			],
+			"station_id": "CMStation_upper_thomson",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Lorong Mega"
+		},
+		{
+			"id": "CMStation_upper_thomson_E43470",
+			"coords": [
+				1.354417822,
+				103.8326352
+			],
+			"station_id": "CMStation_upper_thomson",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Upper Thomson Road"
+		}
+	],
+	"Stevens": [
+		{
+			"id": "CMStation_stevens_E44170",
+			"coords": [
+				1.319951,
+				103.82591
+			],
+			"station_id": "CMStation_stevens",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Built Timah Rd / Stevens Rd"
+		},
+		{
+			"id": "CMStation_stevens_E44171",
+			"coords": [
+				1.319544,
+				103.825057
+			],
+			"station_id": "CMStation_stevens",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Stevens Rd"
+		},
+		{
+			"id": "CMStation_stevens_E44172",
+			"coords": [
+				1.321389,
+				103.825833
+			],
+			"station_id": "CMStation_stevens",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Whitley Rd"
+		},
+		{
+			"id": "CMStation_stevens_E44173",
+			"coords": [
+				1.320951,
+				103.826278
+			],
+			"station_id": "CMStation_stevens",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Dunearn Rd"
+		},
+		{
+			"id": "CMStation_stevens_E44174",
+			"coords": [
+				1.318653,
+				103.825924
+			],
+			"station_id": "CMStation_stevens",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Stevens Rd / Robin Close"
+		}
+	],
+	"Orchard Boulevard": [
+		{
+			"id": "CMStation_orchard_boulevard_5_E44177",
+			"coords": [
+				1.303607,
+				103.823681
+			],
+			"station_id": "CMStation_orchard_boulevard_5",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Grange Rd / Tourism Court"
+		},
+		{
+			"id": "CMStation_orchard_boulevard_5_E44178",
+			"coords": [
+				1.302478,
+				103.824038
+			],
+			"station_id": "CMStation_orchard_boulevard_5",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Orchard Boulevard"
+		}
+	],
+	"Springleaf": [
+		{
+			"id": "CMStation_springleaf_E43447",
+			"coords": [
+				1.398787248,
+				103.8180034
+			],
+			"station_id": "CMStation_springleaf",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Thong Soon Green"
+		},
+		{
+			"id": "CMStation_springleaf_E43448",
+			"coords": [
+				1.397820804,
+				103.8183906
+			],
+			"station_id": "CMStation_springleaf",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Springleaf Road"
+		},
+		{
+			"id": "CMStation_springleaf_E43449",
+			"coords": [
+				1.397684179,
+				103.8180816
+			],
+			"station_id": "CMStation_springleaf",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Upper Thomson Road"
+		}
+	],
+	"Lentor": [
+		{
+			"id": "CMStation_lentor_E43450",
+			"coords": [
+				1.38540983,
+				103.83536
+			],
+			"station_id": "CMStation_lentor",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Lentor Drive"
+		},
+		{
+			"id": "CMStation_lentor_E43451",
+			"coords": [
+				1.38589099,
+				103.8358235
+			],
+			"station_id": "CMStation_lentor",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Lentor Drive"
+		},
+		{
+			"id": "CMStation_lentor_E43452",
+			"coords": [
+				1.384601954,
+				103.8373981
+			],
+			"station_id": "CMStation_lentor",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Yio Chu Kang Road"
+		},
+		{
+			"id": "CMStation_lentor_E43453",
+			"coords": [
+				1.383627752,
+				103.8373387
+			],
+			"station_id": "CMStation_lentor",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Ang Mo Kio Avenue 4"
+		},
+		{
+			"id": "CMStation_lentor_E43454",
+			"coords": [
+				1.384162375,
+				103.8368395
+			],
+			"station_id": "CMStation_lentor",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Thomson Grove"
+		}
+	],
+	"Woodlands North": [
+		{
+			"id": "CMStation_woodlands_north_E41029",
+			"coords": [
+				1.4490473,
+				103.7851023
+			],
+			"station_id": "CMStation_woodlands_north",
+			"short_name": "2",
+			"indicator": "2"
+		},
+		{
+			"id": "CMStation_woodlands_north_E41030",
+			"coords": [
+				1.447936503,
+				103.7854291
+			],
+			"station_id": "CMStation_woodlands_north",
+			"short_name": "1",
+			"indicator": "1"
+		}
+	],
+	"Marina Bay": [
+		{
+			"id": "SingaporeStation_MarinaBay_E8508",
+			"coords": [
+				1.277002,
+				103.85456
+			],
+			"station_id": "SingaporeStation_MarinaBay",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Asia Square / The Sail @ Marina Bay / One Raffles Quay"
+		},
+		{
+			"id": "SingaporeStation_MarinaBay_E8509",
+			"coords": [
+				1.275987,
+				103.854936
+			],
+			"station_id": "SingaporeStation_MarinaBay",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Marina Bay Link Mall / Central Linear Park"
+		},
+		{
+			"id": "SingaporeStation_MarinaBay_E44212",
+			"coords": [
+				1.275146,
+				103.855184
+			],
+			"station_id": "SingaporeStation_MarinaBay",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Bayfront Avenue"
+		},
+		{
+			"id": "SingaporeStation_MarinaBay_E44213",
+			"coords": [
+				1.273767,
+				103.856265
+			],
+			"station_id": "SingaporeStation_MarinaBay",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Sheares Avenue"
+		},
+		{
+			"id": "SingaporeStation_MarinaBay_E44214",
+			"coords": [
+				1.274915,
+				103.85439
+			],
+			"station_id": "SingaporeStation_MarinaBay",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Singapore Conference Hall"
+		}
+	],
+	"Mayflower": [
+		{
+			"id": "CMStation_mayflower_E43455",
+			"coords": [
+				1.372703972,
+				103.8367168
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Ang Mo Kio Avenue 4"
+		},
+		{
+			"id": "CMStation_mayflower_E43456",
+			"coords": [
+				1.371377308,
+				103.836285
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "7",
+			"indicator": "7",
+			"name": "Blk 112"
+		},
+		{
+			"id": "CMStation_mayflower_E43457",
+			"coords": [
+				1.371276323,
+				103.836796
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Blk 107"
+		},
+		{
+			"id": "CMStation_mayflower_E43458",
+			"coords": [
+				1.373532092,
+				103.837461
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Mayflower Avenue"
+		},
+		{
+			"id": "CMStation_mayflower_E43459",
+			"coords": [
+				1.373719761,
+				103.8370317
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Blk 170"
+		},
+		{
+			"id": "CMStation_mayflower_E43460",
+			"coords": [
+				1.370896144,
+				103.8363087
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "6",
+			"indicator": "6",
+			"name": "Blk 256"
+		},
+		{
+			"id": "CMStation_mayflower_E43461",
+			"coords": [
+				1.370777338,
+				103.8367603
+			],
+			"station_id": "CMStation_mayflower",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Blk 111"
+		}
+	],
+	"Great World": [
+		{
+			"id": "CMStation_great_world_4_E44188",
+			"coords": [
+				1.293329,
+				103.833906
+			],
+			"station_id": "CMStation_great_world_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Kim Seng Rd / River Valley Green"
+		},
+		{
+			"id": "CMStation_great_world_4_E44189",
+			"coords": [
+				1.295952,
+				103.833037
+			],
+			"station_id": "CMStation_great_world_4",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "River Valley Rd / River Valley Green"
+		}
+	],
+	"Outram Park": [
+		{
+			"id": "SingaporeStation_OutramPark_E44195",
+			"coords": [
+				1.278996,
+				103.839547
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "5",
+			"indicator": "5",
+			"name": "Cantonment Rd / New Bridge Road"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44196",
+			"coords": [
+				1.280659,
+				103.839802
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Outram Rd / Eu Tong Sen St"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44197",
+			"coords": [
+				1.282303,
+				103.838082
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "8",
+			"indicator": "8",
+			"name": "Outram Rd / Pearl's Hill City Park"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44198",
+			"coords": [
+				1.280793,
+				103.838806
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "7",
+			"indicator": "7",
+			"name": "S'pore General Hosp / NCCS / HPB / HSA"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44199",
+			"coords": [
+				1.280337,
+				103.840311
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "New Bridge Rd / Teo Hong Road"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44200",
+			"coords": [
+				1.281509,
+				103.83923
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "2",
+			"indicator": "2"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44201",
+			"coords": [
+				1.281369,
+				103.839142
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Outram Rd"
+		},
+		{
+			"id": "SingaporeStation_OutramPark_E44202",
+			"coords": [
+				1.278809,
+				103.838415
+			],
+			"station_id": "SingaporeStation_OutramPark",
+			"short_name": "6",
+			"indicator": "6",
+			"name": "Eu Tong Sen St / MOH / Singhealth Polyclinic"
+		}
+	],
+	"Caldecott": [
+		{
+			"id": "SingaporeStation_Caldecott_E40390",
+			"coords": [
+				1.33825973,
+				103.8403875
+			],
+			"station_id": "SingaporeStation_Caldecott",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "SAVH / Toa Payoh Rise"
+		},
+		{
+			"id": "SingaporeStation_Caldecott_E40391",
+			"coords": [
+				1.337832023,
+				103.8404647
+			],
+			"station_id": "SingaporeStation_Caldecott",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Toa Payoh Rise"
+		},
+		{
+			"id": "SingaporeStation_Caldecott_E43854",
+			"coords": [
+				1.336750875,
+				103.8398824
+			],
+			"station_id": "SingaporeStation_Caldecott",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Toa Payoh Link"
+		},
+		{
+			"id": "SingaporeStation_Caldecott_E8478",
+			"coords": [
+				1.337105317,
+				103.8394067
+			],
+			"station_id": "SingaporeStation_Caldecott",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Toa Payoh Link"
+		}
+	],
+	"Gardens by the Bay": [
+		{
+			"id": "CMStation_gardens_by_the_bay_4_E44215",
+			"coords": [
+				1.278197,
+				103.867088
+			],
+			"station_id": "CMStation_gardens_by_the_bay_4",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Marina Mall"
+		},
+		{
+			"id": "CMStation_gardens_by_the_bay_4_E44216",
+			"coords": [
+				1.279589,
+				103.868466
+			],
+			"station_id": "CMStation_gardens_by_the_bay_4",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Marina Gardens Drive"
+		},
+		{
+			"id": "CMStation_gardens_by_the_bay_4_E44217",
+			"coords": [
+				1.280586,
+				103.868901
+			],
+			"station_id": "CMStation_gardens_by_the_bay_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Gardens by the Bay / Marina Barrage"
+		}
+	],
+	"Bright Hill": [
+		{
+			"id": "CMStation_bright_hill_E43462",
+			"coords": [
+				1.363163,
+				103.832195
+			],
+			"station_id": "CMStation_bright_hill",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Sin Ming Avenue"
+		},
+		{
+			"id": "CMStation_bright_hill_E43463",
+			"coords": [
+				1.363233,
+				103.833383
+			],
+			"station_id": "CMStation_bright_hill",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Sim Ming Garden"
+		},
+		{
+			"id": "CMStation_bright_hill_E43464",
+			"coords": [
+				1.363917,
+				103.833831
+			],
+			"station_id": "CMStation_bright_hill",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Sin Ming Avenue"
+		},
+		{
+			"id": "CMStation_bright_hill_E43465",
+			"coords": [
+				1.362087,
+				103.832356
+			],
+			"station_id": "CMStation_bright_hill",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Fulton Road"
+		}
+	],
+	"Maxwell": [
+		{
+			"id": "CMStation_maxwell_4_E44203",
+			"coords": [
+				1.28101,
+				103.844233
+			],
+			"station_id": "CMStation_maxwell_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Buddha Tooth Relic Temple & Museum"
+		},
+		{
+			"id": "CMStation_maxwell_4_E44204",
+			"coords": [
+				1.280825,
+				103.84482
+			],
+			"station_id": "CMStation_maxwell_4",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "South Bridge Rd"
+		},
+		{
+			"id": "CMStation_maxwell_4_E44205",
+			"coords": [
+				1.280133,
+				103.842843
+			],
+			"station_id": "CMStation_maxwell_4",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Neil Rd / Kreta Ayer Rd"
+		}
+	],
+	"Napier": [
+		{
+			"id": "CMStation_napier_4_E44175",
+			"coords": [
+				1.306991,
+				103.819368
+			],
+			"station_id": "CMStation_napier_4",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Gleneagles Hospital / Singapore Botanic Gardens"
+		},
+		{
+			"id": "CMStation_napier_4_E44176",
+			"coords": [
+				1.306334,
+				103.819374
+			],
+			"station_id": "CMStation_napier_4",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Napier Rd / Holland Rd"
+		}
+	],
+	"Woodlands South": [
+		{
+			"id": "CMStation_woodlands_south_E41025",
+			"coords": [
+				1.427604964,
+				103.7934137
+			],
+			"station_id": "CMStation_woodlands_south",
+			"short_name": "2",
+			"indicator": "2",
+			"name": "Blk 541"
+		},
+		{
+			"id": "CMStation_woodlands_south_E41026",
+			"coords": [
+				1.427302017,
+				103.7930275
+			],
+			"station_id": "CMStation_woodlands_south",
+			"short_name": "1",
+			"indicator": "1",
+			"name": "Christ Church Sec School"
+		},
+		{
+			"id": "CMStation_woodlands_south_E41027",
+			"coords": [
+				1.42742676,
+				103.7945605
+			],
+			"station_id": "CMStation_woodlands_south",
+			"short_name": "3",
+			"indicator": "3",
+			"name": "Blk 588"
+		},
+		{
+			"id": "CMStation_woodlands_south_E41028",
+			"coords": [
+				1.426684241,
+				103.7944238
+			],
+			"station_id": "CMStation_woodlands_south",
+			"short_name": "4",
+			"indicator": "4",
+			"name": "Masjid Yusof Ishak"
+		}
+	]
+}

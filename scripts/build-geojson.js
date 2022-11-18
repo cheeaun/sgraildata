@@ -20,8 +20,10 @@ const wikipediaLRTData = readFile('./data/raw/wikipedia-lrt.json');
 const stationData = readFile(
   './data/raw/master-plan-2019-rail-station-layer-geojson.geojson',
 );
-const exitsData = readFile('./data/raw/TrainStationExit06032020.json');
+const exitsData = readFile('./data/raw/Train_Station_Exit_Layer.json');
+const telExitsData = readFile('./data/raw/tel-exits.citymapper.json');
 const telLine = readFile('./data/raw/tel-line.json');
+const peLine = readFile('./data/raw/punggol-lrt-east-loop.json');
 
 // https://github.com/darkskyapp/string-hash/
 function hash(str) {
@@ -57,28 +59,40 @@ function stationName2Codes(name) {
     .replace(/(l|m)rt/i, '')
     .replace(/stat?ion/i, '')
     .trim();
-  const found = codesData.filter((d) => {
-    const stnName = d.STN_NAME.trim()
-      .replace(/\s*(m|l)rt\s+station.*$/i, '')
-      .toLowerCase();
-    const lowerCleanName = cleanName.toLowerCase();
-    return (
-      lowerCleanName === stnName ||
-      lowerCleanName.replace(/road/i, '').trim() ===
-        stnName.replace(/road/i, '').trim() // special case for Tuas West Road
-    );
-  });
-  if (!found.length) console.log('NOT FOUND', cleanName);
-  let codes;
-  if (found.length === 1) {
-    codes = found[0].STN_NO.split('/').map((s) => s.trim());
+
+  let codes = [];
+  const wikipedia = stationName2Wikipedia(cleanName);
+  if (wikipedia) {
+    codes = filterInvalidCodes(wikipedia.codes);
   } else {
-    codes = found
-      .map((f) => f.STN_NO.split('/').map((s) => s.trim()))
-      .flat() // Flatten
-      .filter((item, index, arr) => arr.indexOf(item) === index); // Remove dups
+    const found = codesData.filter((d) => {
+      const stnName = d.STN_NAME.trim()
+        .replace(/\s*(m|l)rt\s+station.*$/i, '')
+        .toLowerCase();
+      const lowerCleanName = cleanName.toLowerCase();
+      return (
+        lowerCleanName === stnName ||
+        lowerCleanName.replace(/road/i, '').trim() ===
+          stnName.replace(/road/i, '').trim() // special case for Tuas West Road
+      );
+    });
+
+    if (found.length) {
+      if (found.length === 1) {
+        codes = found[0].STN_NO.split('/').map((s) => s.trim());
+      } else {
+        codes = found
+          .map((f) => f.STN_NO.split('/').map((s) => s.trim()))
+          .flat() // Flatten
+          .filter((item, index, arr) => arr.indexOf(item) === index); // Remove dups
+      }
+    }
   }
+
   codes.sort(sortStationCodes);
+  if (!codes.length) {
+    console.warn('NO CODES', name);
+  }
   return codes;
 }
 
@@ -239,6 +253,9 @@ const lines = routes
     if (/thomson/i.test(long_name)) {
       // Special case for TEL
       lines = [telLine];
+    } else if (/punggol lrt \(east/i.test(long_name)) {
+      // Special case for PE
+      lines = peLine;
     }
 
     const props = {
@@ -274,21 +291,21 @@ const lines = routes
 
 // EXITS
 console.log('Generate Exits...');
-const exits = exitsData.features
+const tel3Stations =
+  /^(stevens|napier|orchard|great world|havelock|outram park|maxwell|shenton way|marina bay|gardens by the bay)/i;
+const exitsList = exitsData.features
   .map((f) => {
     const {
-      properties: { STN_NAME, STN_NO, EXIT_CODE },
+      properties: { stn_name, exit_code: _exit_code },
       geometry,
     } = f;
-    if (/^null/i.test(EXIT_CODE)) return;
+    const exit_code = _exit_code.replace(/exit\s+?/i, '').toUpperCase();
+    if (/^null/i.test(exit_code)) return;
+    if (tel3Stations.test(stn_name)) return; // Skip TEL3 stations. Exits have become 123 instead of ABC
 
-    let codes = stationName2Codes(STN_NAME);
-    if (!codes.length) {
-      codes = STN_NO.split('/').map((s) => s.trim());
-    }
-    codes.sort(sortStationCodes);
+    let codes = stationName2Codes(stn_name);
 
-    if (codes.includes('NS9') && /[a-z]/i.test(EXIT_CODE)) {
+    if (codes.includes('NS9') && /[a-z]/i.test(exit_code)) {
       // Deprecated in favor of 123s https://landtransportguru.net/woodlands-station/
       return;
     }
@@ -298,12 +315,12 @@ const exits = exitsData.features
     const props = {
       stop_type: 'entrance',
       network: 'entrance',
-      name: EXIT_CODE.toUpperCase(),
+      name: exit_code,
       // Custom
       station_codes: joinedCodes,
     };
     const opts = {
-      id: hash(STN_NAME + EXIT_CODE),
+      id: hash(stn_name + exit_code),
     };
     const truncGeometry = truncate(geometry, {
       coordinates: 2,
@@ -315,6 +332,46 @@ const exits = exitsData.features
   .sort((a, b) =>
     a.properties.station_codes.localeCompare(b.properties.station_codes),
   );
+
+const telExitsList = Object.entries(telExitsData)
+  .map(([stationName, exits]) => {
+    if (!tel3Stations.test(stationName)) return;
+    const stn_name = stationName;
+    return exits.map((exit) => {
+      const { indicator, coords } = exit;
+      const exit_code = indicator;
+      const geometry = {
+        type: 'Point',
+        coordinates: coords.reverse(),
+      };
+
+      let codes = stationName2Codes(stn_name);
+
+      const joinedCodes = codes.join('-');
+
+      const props = {
+        stop_type: 'entrance',
+        network: 'entrance',
+        name: exit_code.toUpperCase(),
+        // Custom
+        station_codes: joinedCodes,
+      };
+      const opts = {
+        id: hash(stn_name + exit_code),
+      };
+      const truncGeometry = truncate(geometry, {
+        coordinates: 2,
+      });
+      const e = feature(truncGeometry, props, opts);
+      return e;
+    });
+  })
+  .filter(Boolean)
+  .flat()
+  .sort((a, b) =>
+    a.properties.station_codes.localeCompare(b.properties.station_codes),
+  );
+const exits = [...exitsList, ...telExitsList];
 
 // STATION BUILDINGS
 console.log('Generate Station Buildings...');
@@ -345,6 +402,10 @@ const buildings = stationData.features
     }
 
     if (!nearestStation) return null;
+    if (nearestStation.properties.station_codes === 'NS28') {
+      // Exclude Marina South station
+      return null;
+    }
 
     const name = Description.match(
       /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,

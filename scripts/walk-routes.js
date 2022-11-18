@@ -31,7 +31,7 @@ function stationsAreAdjacent(sc1, sc2) {
   const codes2 = sc2.split('-');
   const codes2Adjacents = [...codes2];
   codes2.forEach((c) => {
-    const [alphabets, numbers] = c.match(/([a-z]+)(\d+)/i).slice(1);
+    const [alphabets, numbers] = (c.match(/([a-z]+)(\d+)/i) || []).slice(1);
     if (numbers) {
       codes2Adjacents.push(alphabets + (Number(numbers) + 1));
       codes2Adjacents.push(alphabets + (Number(numbers) - 1));

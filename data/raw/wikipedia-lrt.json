@@ -4,11 +4,11 @@
 			"BP1",
 			"NS4"
 		],
-		"name": "JS1",
-		"name_zh_Hans": "Choa Chu Kang",
-		"name_ta": "蔡厝港",
-		"title": null,
-		"url": null
+		"name": "Choa Chu Kang",
+		"name_zh_Hans": "蔡厝港",
+		"name_ta": "சுவா சூ காங்",
+		"title": "Choa Chu Kang MRT/LRT station",
+		"url": "/wiki/Choa_Chu_Kang_MRT/LRT_station"
 	},
 	{
 		"codes": [
@@ -287,11 +287,11 @@
 			"NE17",
 			"PTC"
 		],
-		"name": "CP4",
-		"name_zh_Hans": "Punggol",
-		"name_ta": "榜鹅",
-		"title": null,
-		"url": null
+		"name": "Punggol",
+		"name_zh_Hans": "榜鹅",
+		"name_ta": "பொங்கோல்",
+		"title": "Punggol MRT/LRT station",
+		"url": "/wiki/Punggol_MRT/LRT_station"
 	},
 	{
 		"codes": [
@@ -327,11 +327,11 @@
 		"codes": [
 			"PE4"
 		],
-		"name": "CP3",
-		"name_zh_Hans": "Riviera",
-		"name_ta": "里维拉",
-		"title": null,
-		"url": null
+		"name": "Riviera",
+		"name_zh_Hans": "里维拉",
+		"name_ta": "ரிவியாரா",
+		"title": "Riviera MRT/LRT station",
+		"url": "/wiki/Riviera_MRT/LRT_station"
 	},
 	{
 		"codes": [

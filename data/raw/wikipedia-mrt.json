@@ -206,7 +206,8 @@
 	},
 	{
 		"codes": [
-			"NS22"
+			"NS22",
+			"TE14"
 		],
 		"name": "Orchard",
 		"name_zh_Hans": "乌节",
@@ -261,7 +262,8 @@
 	{
 		"codes": [
 			"NS27",
-			"CE2"
+			"CE2",
+			"TE20"
 		],
 		"name": "Marina Bay",
 		"name_zh_Hans": "滨海湾",
@@ -416,7 +418,8 @@
 	{
 		"codes": [
 			"EW16",
-			"NE3"
+			"NE3",
+			"TE17"
 		],
 		"name": "Outram Park",
 		"name_zh_Hans": "欧南园",
@@ -989,8 +992,8 @@
 	},
 	{
 		"codes": [
-			"DT1",
-			"BP6"
+			"BP6",
+			"DT1"
 		],
 		"name": "Bukit Panjang",
 		"name_zh_Hans": "武吉班让",
@@ -1060,7 +1063,8 @@
 	},
 	{
 		"codes": [
-			"DT10"
+			"DT10",
+			"TE11"
 		],
 		"name": "Stevens",
 		"name_zh_Hans": "史蒂芬",
@@ -1230,8 +1234,7 @@
 	},
 	{
 		"codes": [
-			"TE1",
-			"RTS"
+			"TE1"
 		],
 		"name": "Woodlands North",
 		"name_zh_Hans": "兀兰北",
@@ -1298,6 +1301,76 @@
 		"name_ta": "அப்பர் தாம்சன்",
 		"title": "Upper Thomson MRT station",
 		"url": "/wiki/Upper_Thomson_MRT_station"
+	},
+	{
+		"codes": [
+			"TE12"
+		],
+		"name": "Napier",
+		"name_zh_Hans": "纳比雅",
+		"name_ta": "நேப்பியர்",
+		"title": "Napier MRT station",
+		"url": "/wiki/Napier_MRT_station"
+	},
+	{
+		"codes": [
+			"TE13"
+		],
+		"name": "Orchard Boulevard",
+		"name_zh_Hans": "乌节大道",
+		"name_ta": "ஆர்ச்சர்ட் பொலிவார்ட்",
+		"title": "Orchard Boulevard MRT station",
+		"url": "/wiki/Orchard_Boulevard_MRT_station"
+	},
+	{
+		"codes": [
+			"TE15"
+		],
+		"name": "Great World",
+		"name_zh_Hans": "大世界",
+		"name_ta": "கிரேட் வோர்ல்ட்",
+		"title": "Great World MRT station",
+		"url": "/wiki/Great_World_MRT_station"
+	},
+	{
+		"codes": [
+			"TE16"
+		],
+		"name": "Havelock",
+		"name_zh_Hans": "合乐",
+		"name_ta": "ஹவ்லாக்",
+		"title": "Havelock MRT station",
+		"url": "/wiki/Havelock_MRT_station"
+	},
+	{
+		"codes": [
+			"TE18"
+		],
+		"name": "Maxwell",
+		"name_zh_Hans": "麦士威",
+		"name_ta": "மெச்ஸ்வெல்",
+		"title": "Maxwell MRT station",
+		"url": "/wiki/Maxwell_MRT_station"
+	},
+	{
+		"codes": [
+			"TE19"
+		],
+		"name": "Shenton Way",
+		"name_zh_Hans": "珊顿道",
+		"name_ta": "ஷென்ட்டன் வே",
+		"title": "Shenton Way MRT station",
+		"url": "/wiki/Shenton_Way_MRT_station"
+	},
+	{
+		"codes": [
+			"TE22"
+		],
+		"name": "Gardens by the Bay",
+		"name_zh_Hans": "滨海湾花园",
+		"name_ta": "கரையோரப் பூந்தோட்டங்கள்",
+		"title": "Gardens by the Bay MRT station",
+		"url": "/wiki/Gardens_by_the_Bay_MRT_station"
 	},
 	{
 		"codes": [

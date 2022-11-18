@@ -27,13 +27,21 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
 - Station names in Chinese and Tamil from Wikipedia
   - Run `node scripts/fetch-mrt-wikipedia`
   - Run `node scripts/fetch-lrt-wikipedia`
-- Train Station Exit Point: https://www.mytransport.sg/content/mytransport/home/dataMall/search_datasets.html?searchText=exit (`SHP` file converted to `GeoJSON` on https://mapshaper.org/)
+- Train Station Exit Point: https://datamall.lta.gov.sg/content/datamall/en/search_datasets.html?searchText=Train%20Station%20Exit%20Point (convert from `SHP` to `GeoJSON` - instructions below)
 - LTA MRT Station Exit: https://data.gov.sg/dataset/lta-mrt-station-exit (OUTDATED)
 - Master Plan 2019 Rail Station layer: https://data.gov.sg/dataset/master-plan-2019-rail-station-layer
-- Station codes: https://www.mytransport.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (`SHP` file converted to `JSON records` on https://mapshaper.org/)
-- A point representation to indicate the location of the MRT station: https://www.mytransport.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip via https://www.mytransport.sg/content/mytransport/home/dataMall/static-data.html
+- Station codes: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (convert from `SHP` to `JSON Records` - instructions below)
+- A point representation to indicate the location of the MRT station: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip via https://datamall.lta.gov.sg/content/datamall/en/static-data.html
 - Line for Thomson-East Coast Line from OSM:
   - Run `node scripts/fetch-tel-lines`
+- Line for Punggol LRT (East Loop) from OSM:
+  - Run `node scripts/fetch-punggol-lrt-east-loop`
+
+### Convert SHP to GeoJSON or JSON Records
+
+1. Upload `SHP`, `DBF` and `PRJ` files on https://mapshaper.org/
+  2. Open "Console" and enter `-proj from=EPSG:3414 crs=EPSG:4326` to convert from [SVY21 (EPSG:3414)](https://epsg.io/3414) to [WGS84 (EPSG:4326)](https://epsg.io/4326)
+  3. Export as `GeoJSON` or `JSON Records`.
 
 ## Generate final data
 
