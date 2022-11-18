@@ -24,6 +24,7 @@ const exitsData = readFile('./data/raw/Train_Station_Exit_Layer.json');
 const telExitsData = readFile('./data/raw/tel-exits.citymapper.json');
 const telLine = readFile('./data/raw/tel-line.json');
 const peLine = readFile('./data/raw/punggol-lrt-east-loop.json');
+const dtlLine = readFile('./data/raw/dtl-way.json');
 
 // https://github.com/darkskyapp/string-hash/
 function hash(str) {
@@ -256,6 +257,9 @@ const lines = routes
     } else if (/punggol lrt \(east/i.test(long_name)) {
       // Special case for PE
       lines = peLine;
+    } else if (/downtown/i.test(long_name)) {
+      // Special case for DTL
+      lines = dtlLine;
     }
 
     const props = {

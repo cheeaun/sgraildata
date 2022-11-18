@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1 (18 November 2022)
+
+- Fix DTL line become straight lines instead of real lines
+
 ## 3.0.0 (18 November 2022)
 
 - Add Phase 3 of Thomson-East Coast Line
