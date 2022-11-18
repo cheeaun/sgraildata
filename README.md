@@ -36,6 +36,8 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
   - Run `node scripts/fetch-tel-lines`
 - Line for Punggol LRT (East Loop) from OSM:
   - Run `node scripts/fetch-punggol-lrt-east-loop`
+- Line for Downtown Line (DTL) from OSM:
+  - Run `node scripts/fetch-downtown-line`
 
 ### Convert SHP to GeoJSON or JSON Records
 
