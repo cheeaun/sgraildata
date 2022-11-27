@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "layers": {
+    "stations": {
+      "source": "mapbox://tileset-source/cheeaun/sg-rail",
+      "minzoom": 6,
+      "maxzoom": 16,
+      "features": {
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Point"],
+          ["==", ["get", "stop_type"], "station"]
+        ]
+      },
+      "tiles": {
+        "buffer_size": 10
+      }
+    },
+    "lines": {
+      "source": "mapbox://tileset-source/cheeaun/sg-rail",
+      "minzoom": 0,
+      "maxzoom": 16,
+      "features": {
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "LineString"],
+          ["has", "line_color"]
+        ],
+        "simplification": ["case", ["<", ["zoom"], 16], 4, 1]
+      }
+    },
+    "exits": {
+      "source": "mapbox://tileset-source/cheeaun/sg-rail",
+      "minzoom": 13,
+      "maxzoom": 16,
+      "features": {
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Point"],
+          ["==", ["get", "stop_type"], "entrance"]
+        ]
+      }
+    },
+    "buildings": {
+      "source": "mapbox://tileset-source/cheeaun/sg-rail",
+      "minzoom": 13,
+      "maxzoom": 16,
+      "features": {
+        "filter": [
+          "all",
+          ["==", ["geometry-type"], "Polygon"],
+          ["==", ["get", "type"], "subway"]
+        ]
+      }
+    }
+  }
+}

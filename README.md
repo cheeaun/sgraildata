@@ -48,3 +48,12 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
 ## Generate final data
 
 - Run `node scripts/build-geojson`
+
+## Upload tileset to Mapbox Tiling Service (MTS)
+
+Use [`tilesets-cli`](https://github.com/mapbox/tilesets-cli).
+
+- Upload new tileset source: `tilesets upload-source <username> <source_id> data/v1/sg-rail.geojson`
+- Create new tileset with recipe: `tilesets create <tileset_id> --recipe data/v1/sg-rail.recipe.json --name "SG Rail"`
+- Update recipe: `tilesets update <tileset_id> --recipe data/v1/sg-rail.recipe.json` (Note: after update, publish to see changes)
+- Publish tileset: `tilesets publish <tileset_id>`
