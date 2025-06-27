@@ -3,7 +3,7 @@ const { ONEMAP_TOKEN, MAPBOX_ACCESS_TOKEN } = process.env;
 
 const { readFile, writeFile } = require('../utils');
 const distance = require('@turf/distance').default;
-const got = require('got');
+
 const {
   featureCollection,
   feature,
@@ -110,18 +110,17 @@ const exitPairs = [];
         // // console.log(body);
         // const { geometry, distance: d, duration } = body.routes[0];
         // console.log(d, duration);
-        const { body } = await got(
-          'https://developers.onemap.sg/publicapi/routingsvc/route',
-          {
-            responseType: 'json',
-            searchParams: {
-              start: [...startCoords].reverse().join(','),
-              end: [...endCoords].reverse().join(','),
-              routeType: 'walk',
-              token: ONEMAP_TOKEN,
-            },
-          },
-        );
+        const url = new URL('https://www.onemap.gov.sg/api/public/routingsvc/route');
+        url.searchParams.set('start', [...startCoords].reverse().join(','));
+        url.searchParams.set('end', [...endCoords].reverse().join(','));
+        url.searchParams.set('routeType', 'walk');
+
+        const response = await fetch(url, {
+          headers: {
+            'Authorization': `${ONEMAP_TOKEN}`
+          }
+        });
+        const body = await response.json();
         const {
           route_geometry,
           route_summary: { total_distance: d, total_time: duration },

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singapore Rail Data Preview</title>
+  <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    .info-panel {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 999;
+      max-width: 300px;
+
+      h3 {
+        margin: 0;
+        padding: 0;
+      }
+    }
+    .loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 2000;
+    }
+    .maplibregl-popup-content {
+      max-width: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="loading" class="loading">Loading Singapore Rail Data...</div>
+  <div id="map"></div>
+  <div class="info-panel">
+    <h3>Singapore Rail Data</h3>
+    <div id="feature-count">Loading...</div>
+  </div>
+
+  <script>
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: 'https://tiles.openfreemap.org/styles/bright',
+      center: [103.8198, 1.3521],
+      zoom: 10
+    });
+
+    let stationCount = 0;
+    let exitCount = 0;
+    let lineCount = 0;
+    let polygonCount = 0;
+
+    async function loadGeoJSONData() {
+      try {
+        const response = await fetch('./data/v1/sg-rail.geojson');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        throw new Error('Failed to load GeoJSON file. Please serve this HTML file via HTTP server (not file://) or use the embedded version.');
+      }
+    }
+
+    const lineColors = {
+      'red': '#E2231A',
+      'green': '#009645',
+      'purple': '#9900AA',
+      'yellow': '#FA9E0D',
+      'blue': '#005EC4',
+      'brown': '#9D5B25',
+      'orange': '#FF6319',
+      'pink': '#E899CD',
+      'grey': '#9CA3A3',
+      'gray': '#9CA3A3',
+      'darkslateblue': '#005EC4',
+      'darkmagenta': '#8B008B',
+      'orangered': '#FF4500',
+      'saddlebrown': '#8B4513',
+      'mediumseagreen': '#3CB371'
+    };
+
+    function getStationColors(stationColors) {
+      if (!stationColors) return [];
+      const colorList = stationColors.split('-').filter(color => color.trim() !== '');
+      return [...new Set(colorList)].map(color => lineColors[color.toLowerCase()] || lineColors.grey);
+    }
+
+    function getStationColor(feature) {
+      const colors = getStationColors(feature.properties.station_colors);
+      if (colors.length === 0) return lineColors.grey;
+      const priorityOrder = [lineColors.red, lineColors.green, lineColors.blue, lineColors.purple, lineColors.yellow, lineColors.brown];
+      for (const priorityColor of priorityOrder) {
+        if (colors.includes(priorityColor)) return priorityColor;
+      }
+      return colors[0];
+    }
+
+    function isInterchangeStation(feature) {
+      return getStationColors(feature.properties.station_colors).length > 1;
+    }
+
+    function createPopupContent(feature) {
+      const props = feature.properties;
+      let content = '<div style="max-width: 300px;">';
+      if (props.name) {
+        content += `<h4 style="margin: 0 0 10px 0; color: #333;">${props.name}</h4>`;
+      }
+      if (props.stop_type) {
+        const typeLabel = props.stop_type === 'station' ? 'Station' : 'Exit/Entrance';
+        content += `<p style="margin: 5px 0;"><strong>Type:</strong> ${typeLabel}</p>`;
+      }
+      if (props.station_colors) {
+        content += `<p style="margin: 5px 0;"><strong>Lines:</strong> ${props.station_colors}</p>`;
+      }
+      if (props.line_color) {
+        content += `<p style="margin: 5px 0;"><strong>Line Color:</strong> ${props.line_color}</p>`;
+      }
+      content += '<div style="margin-top: 10px; font-size: 11px; color: #666;">';
+      content += '<strong>All Properties:</strong><br>';
+      for (const [key, value] of Object.entries(props)) {
+        if (!['name', 'stop_type', 'station_colors', 'line_color'].includes(key)) {
+          content += `${key}: ${value}<br>`;
+        }
+      }
+      content += '</div></div>';
+      return content;
+    }
+
+    map.on('idle', () => {
+      if (map.getSource('stations')) return; // Prevent duplicate loading
+      loadGeoJSONData()
+        .then(data => {
+          document.getElementById('loading').style.display = 'none';
+
+          const lineFeatures = data.features.filter(f => f.geometry.type === 'LineString' || f.geometry.type === 'MultiLineString');
+          const polygonFeatures = data.features.filter(f => f.geometry.type === 'Polygon');
+          const exitFeatures = data.features.filter(f => f.geometry.type === 'Point' && f.properties.stop_type === 'entrance');
+          const stationFeatures = data.features.filter(f => f.geometry.type === 'Point' && f.properties.stop_type === 'station');
+
+          polygonCount = polygonFeatures.length;
+          lineCount = lineFeatures.length;
+          exitCount = exitFeatures.length;
+          stationCount = stationFeatures.length;
+
+          if (polygonFeatures.length > 0) {
+            map.addSource('polygons', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: polygonFeatures }
+            });
+            map.addLayer({
+              id: 'polygons',
+              type: 'fill',
+              source: 'polygons',
+              paint: {
+                'fill-color': '#A23B72',
+                'fill-opacity': 0.2
+              }
+            });
+            map.addLayer({
+              id: 'polygons-stroke',
+              type: 'line',
+              source: 'polygons',
+              paint: {
+                'line-color': '#A23B72',
+                'line-width': 1,
+                'line-opacity': 0.8
+              }
+            });
+          }
+
+          if (lineFeatures.length > 0) {
+            map.addSource('lines', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: lineFeatures }
+            });
+            map.addLayer({
+              id: 'lines',
+              type: 'line',
+              source: 'lines',
+              paint: {
+                'line-color': ['case',
+                  ['has', 'line_color'],
+                  ['case',
+                    ['==', ['get', 'line_color'], 'red'], '#E2231A',
+                    ['==', ['get', 'line_color'], 'green'], '#009645',
+                    ['==', ['get', 'line_color'], 'blue'], '#005EC4',
+                    ['==', ['get', 'line_color'], 'purple'], '#9900AA',
+                    ['==', ['get', 'line_color'], 'yellow'], '#FA9E0D',
+                    ['==', ['get', 'line_color'], 'brown'], '#9D5B25',
+                    ['==', ['get', 'line_color'], 'orange'], '#FF6319',
+                    ['==', ['get', 'line_color'], 'darkslateblue'], '#005EC4',
+                    ['==', ['get', 'line_color'], 'darkmagenta'], '#8B008B',
+                    ['==', ['get', 'line_color'], 'orangered'], '#FF4500',
+                    ['==', ['get', 'line_color'], 'saddlebrown'], '#8B4513',
+                    ['==', ['get', 'line_color'], 'mediumseagreen'], '#3CB371',
+                    ['==', ['get', 'line_color'], 'grey'], '#9CA3A3',
+                    ['==', ['get', 'line_color'], 'gray'], '#9CA3A3',
+                    '#2E86AB'
+                  ],
+                  '#2E86AB'
+                ],
+                'line-width': 4,
+                'line-opacity': 0.8
+              },
+              layout: {
+                'line-cap': 'round',
+                'line-join': 'round'
+              }
+            });
+          }
+
+          if (exitFeatures.length > 0) {
+            map.addSource('exits', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: exitFeatures }
+            });
+            map.addLayer({
+              id: 'exits',
+              type: 'circle',
+              source: 'exits',
+              paint: {
+                'circle-radius': 4,
+                'circle-color': '#666666',
+                'circle-stroke-color': '#ffffff',
+                'circle-stroke-width': 1,
+                'circle-opacity': 0.8
+              }
+            });
+
+          }
+
+          if (stationFeatures.length > 0) {
+
+            map.addSource('stations', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: stationFeatures }
+            });
+
+            // Regular stations layer (non-interchange)
+            map.addLayer({
+              id: 'stations-regular',
+              type: 'circle',
+              source: 'stations',
+              filter: ['==', ['index-of', '-', ['coalesce', ['get', 'station_colors'], '']], -1],
+              paint: {
+                'circle-radius': 8,
+                'circle-color': [
+                  'case',
+                  ['==', ['get', 'station_colors'], 'red'], '#E2231A',
+                  ['==', ['get', 'station_colors'], 'green'], '#009645',
+                  ['==', ['get', 'station_colors'], 'blue'], '#005EC4',
+                  ['==', ['get', 'station_colors'], 'darkslateblue'], '#005EC4',
+                  ['==', ['get', 'station_colors'], 'purple'], '#9900AA',
+                  ['==', ['get', 'station_colors'], 'darkmagenta'], '#8B008B',
+                  ['==', ['get', 'station_colors'], 'yellow'], '#FA9E0D',
+                  ['==', ['get', 'station_colors'], 'orange'], '#FFA500',
+                  ['==', ['get', 'station_colors'], 'brown'], '#9D5B25',
+                  ['==', ['get', 'station_colors'], 'saddlebrown'], '#8B4513',
+                  ['==', ['get', 'station_colors'], 'mediumseagreen'], '#3CB371',
+                  ['==', ['get', 'station_colors'], 'orangered'], '#FF4500',
+                  ['==', ['get', 'station_colors'], 'grey'], '#9CA3A3',
+                  ['==', ['get', 'station_colors'], 'gray'], '#9CA3A3',
+                  '#E2231A'
+                ],
+                'circle-stroke-color': '#ffffff',
+                'circle-stroke-width': 2,
+                'circle-opacity': 0.9
+              }
+            });
+
+            // Interchange stations layer (on top)
+            map.addLayer({
+              id: 'stations-interchange',
+              type: 'circle',
+              source: 'stations',
+              filter: ['!=', ['index-of', '-', ['coalesce', ['get', 'station_colors'], '']], -1],
+              paint: {
+                'circle-radius': 10,
+                'circle-color': [
+                  'case',
+                  ['in', 'red', ['get', 'station_colors']], '#E2231A',
+                  ['in', 'green', ['get', 'station_colors']], '#009645',
+                  ['in', 'blue', ['get', 'station_colors']], '#005EC4',
+                  ['in', 'darkslateblue', ['get', 'station_colors']], '#005EC4',
+                  ['in', 'purple', ['get', 'station_colors']], '#9900AA',
+                  ['in', 'darkmagenta', ['get', 'station_colors']], '#8B008B',
+                  ['in', 'yellow', ['get', 'station_colors']], '#FA9E0D',
+                  ['in', 'orange', ['get', 'station_colors']], '#FFA500',
+                  ['in', 'brown', ['get', 'station_colors']], '#9D5B25',
+                  ['in', 'saddlebrown', ['get', 'station_colors']], '#8B4513',
+                  ['in', 'mediumseagreen', ['get', 'station_colors']], '#3CB371',
+                  ['in', 'orangered', ['get', 'station_colors']], '#FF4500',
+                  ['in', 'grey', ['get', 'station_colors']], '#9CA3A3',
+                  ['in', 'gray', ['get', 'station_colors']], '#9CA3A3',
+                  '#E2231A'
+                ],
+                'circle-stroke-color': '#000000',
+                'circle-stroke-width': 3,
+                'circle-opacity': 0.9
+              }
+            });
+
+          }
+
+          document.getElementById('feature-count').innerHTML = `
+            <strong>Features:</strong><br>
+            Stations: ${stationCount}<br>
+            Exits: ${exitCount}<br>
+            Lines: ${lineCount}<br>
+            Polygons: ${polygonCount}<br>
+            Total: ${stationCount + exitCount + lineCount + polygonCount}
+          `;
+
+          if (data.features && data.features.length > 0) {
+            const bounds = new maplibregl.LngLatBounds();
+            data.features.forEach(feature => {
+              if (feature.geometry.type === 'Point') {
+                bounds.extend(feature.geometry.coordinates);
+              } else if (feature.geometry.type === 'LineString') {
+                feature.geometry.coordinates.forEach(coord => bounds.extend(coord));
+              } else if (feature.geometry.type === 'Polygon') {
+                feature.geometry.coordinates[0].forEach(coord => bounds.extend(coord));
+              }
+            });
+
+            map.fitBounds(bounds, { padding: 50 });
+          }
+
+          // Priority-based click handling: stations > exits > lines > polygons
+          map.on('click', (e) => {
+            const layerPriority = ['stations-interchange', 'stations-regular', 'exits', 'lines', 'polygons'];
+
+            for (const layerId of layerPriority) {
+              if (map.getLayer(layerId)) {
+                const features = map.queryRenderedFeatures(e.point, { layers: [layerId] });
+                if (features.length > 0) {
+                  new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(createPopupContent(features[0]))
+                    .addTo(map);
+                  break; // Stop at first layer with features
+                }
+              }
+            }
+          });
+
+          // Hover effects for all interactive layers
+          ['polygons', 'lines', 'exits', 'stations'].forEach(layerId => {
+            if (map.getLayer(layerId)) {
+              map.on('mouseenter', layerId, () => {
+                map.getCanvas().style.cursor = 'pointer';
+              });
+              map.on('mouseleave', layerId, () => {
+                map.getCanvas().style.cursor = '';
+              });
+            }
+          });
+        })
+        .catch(error => {
+          console.error('Error loading GeoJSON:', error);
+          document.getElementById('loading').innerHTML = 'Error loading data: ' + error.message;
+        });
+    });
+  </script>
+</body>
+</html>

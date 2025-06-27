@@ -23,10 +23,13 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', {
 
       const $tdFirst = $td1.prev('td');
       const $codes = $tdFirst.find('b');
+      const $siblingTds = $tdFirst.nextAll('td');
+      const hasTBA = $siblingTds.text().includes('TBA');
 
       // Only care about current stations, not future ones
       // If first column is empty, means it's a future station
-      if ($codes.length) {
+      // If any sibling columns have TBA, means it's a future station
+      if ($codes.length && !hasTBA) {
         const codes = $codes.map((i, el) => $(el).text().trim()).get();
 
         const $td2 = $td1.next('td');

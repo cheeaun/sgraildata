@@ -28,10 +28,11 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
   - Run `node scripts/fetch-mrt-wikipedia`
   - Run `node scripts/fetch-lrt-wikipedia`
 - Train Station Exit Point: https://datamall.lta.gov.sg/content/datamall/en/search_datasets.html?searchText=Train%20Station%20Exit%20Point (convert from `SHP` to `GeoJSON` - instructions below)
-- LTA MRT Station Exit: https://data.gov.sg/dataset/lta-mrt-station-exit (OUTDATED)
-- Master Plan 2019 Rail Station layer: https://data.gov.sg/dataset/master-plan-2019-rail-station-layer
-- Station codes: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (convert from `SHP` to `JSON Records` - instructions below)
-- A point representation to indicate the location of the MRT station: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip via https://datamall.lta.gov.sg/content/datamall/en/static-data.html
+- LTA MRT Station Exit: https://data.gov.sg/collections/367/view
+- Master Plan 2019 Rail Station layer: https://data.gov.sg/datasets/d_8d886e3a83934d7447acdf5bc6959999/view
+~~- Station codes: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (convert from `SHP` to `JSON Records` - instructions below)~~
+- Train Station Codes and Chinese Names: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/Train%20Station%20Codes%20and%20Chinese%20Names.zip (XLS file)
+- A point representation to indicate the location of the MRT station: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation_Apr2025.zip via https://datamall.lta.gov.sg/content/datamall/en/static-data.html
 - Line for Thomson-East Coast Line from OSM:
   - Run `node scripts/fetch-tel-lines`
 - Line for Punggol LRT (East Loop) from OSM:

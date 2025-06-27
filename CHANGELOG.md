@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.0 (27 June 2025)
+
+- Add Hume and Punggol Coast stations
+- Add Phase 4 of Thomson-East Coast Line
+
 ## 3.0.1 (18 November 2022)
 
 - Fix DTL line become straight lines instead of real lines

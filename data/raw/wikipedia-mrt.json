@@ -2,7 +2,8 @@
 	{
 		"codes": [
 			"NS1",
-			"EW24"
+			"EW24",
+			"JE5"
 		],
 		"name": "Jurong East",
 		"name_zh_Hans": "裕廊东",
@@ -33,6 +34,7 @@
 	{
 		"codes": [
 			"NS4",
+			"JS1",
 			"BP1"
 		],
 		"name": "Choa Chu Kang",
@@ -144,7 +146,8 @@
 	},
 	{
 		"codes": [
-			"NS16"
+			"NS16",
+			"CR11"
 		],
 		"name": "Ang Mo Kio",
 		"name_zh_Hans": "宏茂桥",
@@ -283,7 +286,9 @@
 	},
 	{
 		"codes": [
-			"EW1"
+			"EW1",
+			"CR5",
+			"CP1"
 		],
 		"name": "Pasir Ris",
 		"name_zh_Hans": "巴西立",
@@ -490,7 +495,8 @@
 	},
 	{
 		"codes": [
-			"EW23"
+			"EW23",
+			"CR17"
 		],
 		"name": "Clementi",
 		"name_zh_Hans": "金文泰",
@@ -520,7 +526,8 @@
 	},
 	{
 		"codes": [
-			"EW27"
+			"EW27",
+			"JS8"
 		],
 		"name": "Boon Lay",
 		"name_zh_Hans": "文礼",
@@ -550,7 +557,8 @@
 	},
 	{
 		"codes": [
-			"EW30"
+			"EW30",
+			"CR24"
 		],
 		"name": "Gul Circle",
 		"name_zh_Hans": "卡尔圈",
@@ -715,7 +723,8 @@
 	},
 	{
 		"codes": [
-			"NE14"
+			"NE14",
+			"CR8"
 		],
 		"name": "Hougang",
 		"name_zh_Hans": "后港",
@@ -747,6 +756,7 @@
 	{
 		"codes": [
 			"NE17",
+			"CP4",
 			"PTC"
 		],
 		"name": "Punggol",
@@ -754,6 +764,16 @@
 		"name_ta": "பொங்கோல்",
 		"title": "Punggol MRT/LRT station",
 		"url": "/wiki/Punggol_MRT/LRT_station"
+	},
+	{
+		"codes": [
+			"NE18"
+		],
+		"name": "Punggol Coast",
+		"name_zh_Hans": "榜鹅海岸",
+		"name_ta": "பொங்கோல் கோஸ்ட்",
+		"title": "Punggol Coast MRT station",
+		"url": "/wiki/Punggol_Coast_MRT_station"
 	},
 	{
 		"codes": [
@@ -981,6 +1001,36 @@
 	},
 	{
 		"codes": [
+			"CC30"
+		],
+		"name": "Keppel",
+		"name_zh_Hans": "吉宝",
+		"name_ta": "கெப்பல்",
+		"title": "Keppel MRT station",
+		"url": "/wiki/Keppel_MRT_station"
+	},
+	{
+		"codes": [
+			"CC31"
+		],
+		"name": "Cantonment",
+		"name_zh_Hans": "广东民",
+		"name_ta": "கெண்டொன்மன்",
+		"title": "Cantonment MRT station",
+		"url": "/wiki/Cantonment_MRT_station"
+	},
+	{
+		"codes": [
+			"CC32"
+		],
+		"name": "Prince Edward Road",
+		"name_zh_Hans": "爱德华太子路",
+		"name_ta": "பிரின்ஸ் எட்வர்ட் ரோடு",
+		"title": "Prince Edward Road MRT station",
+		"url": "/wiki/Prince_Edward_Road_MRT_station"
+	},
+	{
+		"codes": [
 			"CE1",
 			"DT16"
 		],
@@ -992,8 +1042,8 @@
 	},
 	{
 		"codes": [
-			"BP6",
-			"DT1"
+			"DT1",
+			"BP6"
 		],
 		"name": "Bukit Panjang",
 		"name_zh_Hans": "武吉班让",
@@ -1023,6 +1073,16 @@
 	},
 	{
 		"codes": [
+			"DT4"
+		],
+		"name": "Hume",
+		"name_zh_Hans": "谦道",
+		"name_ta": "ஹியூம்",
+		"title": "Hume MRT station",
+		"url": "/wiki/Hume_MRT_station"
+	},
+	{
+		"codes": [
 			"DT5"
 		],
 		"name": "Beauty World",
@@ -1033,7 +1093,8 @@
 	},
 	{
 		"codes": [
-			"DT6"
+			"DT6",
+			"CR15"
 		],
 		"name": "King Albert Park",
 		"name_zh_Hans": "阿尔柏王园",
@@ -1234,6 +1295,27 @@
 	},
 	{
 		"codes": [
+			"DT36"
+		],
+		"name": "Xilin",
+		"name_zh_Hans": "锡林",
+		"name_ta": "ஸீலின்",
+		"title": "Xilin MRT station",
+		"url": "/wiki/Xilin_MRT_station"
+	},
+	{
+		"codes": [
+			"DT37",
+			"TE31"
+		],
+		"name": "Sungei Bedok",
+		"name_zh_Hans": "双溪勿洛",
+		"name_ta": "சங்கை பிடோக்",
+		"title": "Sungei Bedok MRT station",
+		"url": "/wiki/Sungei_Bedok_MRT_station"
+	},
+	{
+		"codes": [
 			"TE1"
 		],
 		"name": "Woodlands North",
@@ -1284,7 +1366,8 @@
 	},
 	{
 		"codes": [
-			"TE7"
+			"TE7",
+			"CR13"
 		],
 		"name": "Bright Hill",
 		"name_zh_Hans": "光明山",
@@ -1374,6 +1457,439 @@
 	},
 	{
 		"codes": [
+			"TE22A"
+		],
+		"name": "Founders' Memorial",
+		"name_zh_Hans": "建国先贤纪念园",
+		"name_ta": "தேச நிறுவனர்கள் நினைவிட நிலையம்",
+		"title": "Founders' Memorial MRT station",
+		"url": "/wiki/Founders%27_Memorial_MRT_station"
+	},
+	{
+		"codes": [
+			"TE23"
+		],
+		"name": "Tanjong Rhu",
+		"name_zh_Hans": "丹戎禺",
+		"name_ta": "தஞ்சோங் ரூ",
+		"title": "Tanjong Rhu MRT station",
+		"url": "/wiki/Tanjong_Rhu_MRT_station"
+	},
+	{
+		"codes": [
+			"TE24"
+		],
+		"name": "Katong Park",
+		"name_zh_Hans": "加东公园",
+		"name_ta": "காத்தோங் பார்க்",
+		"title": "Katong Park MRT station",
+		"url": "/wiki/Katong_Park_MRT_station"
+	},
+	{
+		"codes": [
+			"TE25"
+		],
+		"name": "Tanjong Katong",
+		"name_zh_Hans": "丹戎加东",
+		"name_ta": "தஞ்சோங் காத்தோங்",
+		"title": "Tanjong Katong MRT station",
+		"url": "/wiki/Tanjong_Katong_MRT_station"
+	},
+	{
+		"codes": [
+			"TE26"
+		],
+		"name": "Marine Parade",
+		"name_zh_Hans": "马林百列",
+		"name_ta": "மரீன் பரேட்",
+		"title": "Marine Parade MRT station",
+		"url": "/wiki/Marine_Parade_MRT_station"
+	},
+	{
+		"codes": [
+			"TE27"
+		],
+		"name": "Marine Terrace",
+		"name_zh_Hans": "马林台",
+		"name_ta": "மரீன் டெரஸ்",
+		"title": "Marine Terrace MRT station",
+		"url": "/wiki/Marine_Terrace_MRT_station"
+	},
+	{
+		"codes": [
+			"TE28"
+		],
+		"name": "Siglap",
+		"name_zh_Hans": "实乞纳",
+		"name_ta": "சிக்லாப்",
+		"title": "Siglap MRT station",
+		"url": "/wiki/Siglap_MRT_station"
+	},
+	{
+		"codes": [
+			"TE29"
+		],
+		"name": "Bayshore",
+		"name_zh_Hans": "碧湾",
+		"name_ta": "பேஷோர்",
+		"title": "Bayshore MRT station",
+		"url": "/wiki/Bayshore_MRT_station"
+	},
+	{
+		"codes": [
+			"TE30"
+		],
+		"name": "Bedok South",
+		"name_zh_Hans": "勿洛南",
+		"name_ta": "பிடோக் சவுத்",
+		"title": "Bedok South MRT station",
+		"url": "/wiki/Bedok_South_MRT_station"
+	},
+	{
+		"codes": [
+			"JS2"
+		],
+		"name": "Choa Chu Kang West",
+		"name_zh_Hans": "蔡厝港西",
+		"name_ta": "சுவா சூ காங் வெஸ்ட்",
+		"title": "Choa Chu Kang West MRT station",
+		"url": "/wiki/Choa_Chu_Kang_West_MRT_station"
+	},
+	{
+		"codes": [
+			"JS3"
+		],
+		"name": "Tengah",
+		"name_zh_Hans": "登加",
+		"name_ta": "தெங்கா",
+		"title": "Tengah MRT station",
+		"url": "/wiki/Tengah_MRT_station"
+	},
+	{
+		"codes": [
+			"JS4"
+		],
+		"name": "Hong Kah",
+		"name_zh_Hans": "丰加",
+		"name_ta": "ஹோங் காஹ்",
+		"title": "Hong Kah MRT station",
+		"url": "/wiki/Hong_Kah_MRT_station"
+	},
+	{
+		"codes": [
+			"JS5"
+		],
+		"name": "Corporation",
+		"name_zh_Hans": "企业",
+		"name_ta": "கார்ப்பரெஷன்",
+		"title": "Corporation MRT station",
+		"url": "/wiki/Corporation_MRT_station"
+	},
+	{
+		"codes": [
+			"JS6"
+		],
+		"name": "Jurong West",
+		"name_zh_Hans": "裕廊西",
+		"name_ta": "ஜூரோங் வெஸ்ட்",
+		"title": "Jurong West MRT station",
+		"url": "/wiki/Jurong_West_MRT_station"
+	},
+	{
+		"codes": [
+			"JS7"
+		],
+		"name": "Bahar Junction",
+		"name_zh_Hans": "峇哈路口",
+		"name_ta": "பஹார் சந்திப்பு",
+		"title": "Bahar Junction MRT station",
+		"url": "/wiki/Bahar_Junction_MRT_station"
+	},
+	{
+		"codes": [
+			"JW1"
+		],
+		"name": "Gek Poh",
+		"name_zh_Hans": "玉宝",
+		"name_ta": "ஜெக் போ",
+		"title": "Gek Poh MRT station",
+		"url": "/wiki/Gek_Poh_MRT_station"
+	},
+	{
+		"codes": [
+			"JW2"
+		],
+		"name": "Tawas",
+		"name_zh_Hans": "大华士",
+		"name_ta": "தாவாஸ்",
+		"title": "Tawas MRT station",
+		"url": "/wiki/Tawas_MRT_station"
+	},
+	{
+		"codes": [
+			"JE1"
+		],
+		"name": "Tengah Plantation",
+		"name_zh_Hans": "登加种植",
+		"name_ta": "தெங்கா தோட்டம்",
+		"title": "Tengah Plantation MRT station",
+		"url": "/wiki/Tengah_Plantation_MRT_station"
+	},
+	{
+		"codes": [
+			"JE2"
+		],
+		"name": "Tengah Park",
+		"name_zh_Hans": "登加公园",
+		"name_ta": "தெங்கா பூங்கா",
+		"title": "Tengah Park MRT station",
+		"url": "/wiki/Tengah_Park_MRT_station"
+	},
+	{
+		"codes": [
+			"JE3"
+		],
+		"name": "Bukit Batok West",
+		"name_zh_Hans": "武吉巴督西",
+		"name_ta": "புக்கிட் பாத்தோக் வெஸ்ட்",
+		"title": "Bukit Batok West MRT station",
+		"url": "/wiki/Bukit_Batok_West_MRT_station"
+	},
+	{
+		"codes": [
+			"JE4"
+		],
+		"name": "Toh Guan",
+		"name_zh_Hans": "卓源",
+		"name_ta": "டோ குவான்",
+		"title": "Toh Guan MRT station",
+		"url": "/wiki/Toh_Guan_MRT_station"
+	},
+	{
+		"codes": [
+			"JE6"
+		],
+		"name": "Jurong Town Hall",
+		"name_zh_Hans": "裕廊镇大会堂",
+		"name_ta": "ஜுராங் டவுன் ஹால்",
+		"title": "Jurong Town Hall MRT station",
+		"url": "/wiki/Jurong_Town_Hall_MRT_station"
+	},
+	{
+		"codes": [
+			"JE7"
+		],
+		"name": "Pandan Reservoir",
+		"name_zh_Hans": "班丹蓄水池",
+		"name_ta": "பாண்டன் ரெசவோர்",
+		"title": "Pandan Reservoir MRT station",
+		"url": "/wiki/Pandan_Reservoir_MRT_station"
+	},
+	{
+		"codes": [
+			"JS9"
+		],
+		"name": "Enterprise",
+		"name_zh_Hans": "事业",
+		"name_ta": "எண்டர்பிரைஸ்",
+		"title": "Enterprise MRT station",
+		"url": "/wiki/Enterprise_MRT_station"
+	},
+	{
+		"codes": [
+			"JS10"
+		],
+		"name": "Tukang",
+		"name_zh_Hans": "都康",
+		"name_ta": "துக்காங்",
+		"title": "Tukang MRT station",
+		"url": "/wiki/Tukang_MRT_station"
+	},
+	{
+		"codes": [
+			"JS11"
+		],
+		"name": "Jurong Hill",
+		"name_zh_Hans": "裕廊山",
+		"name_ta": "ஜூரோங் ஹில்",
+		"title": "Jurong Hill MRT station",
+		"url": "/wiki/Jurong_Hill_MRT_station"
+	},
+	{
+		"codes": [
+			"JS12",
+			"CR21"
+		],
+		"name": "Jurong Pier",
+		"name_zh_Hans": "裕廊渡头",
+		"name_ta": "ஜூரோங் பியர்",
+		"title": "Jurong Pier MRT station",
+		"url": "/wiki/Jurong_Pier_MRT_station"
+	},
+	{
+		"codes": [
+			"JW3"
+		],
+		"name": "Nanyang Gateway",
+		"name_zh_Hans": "南洋门",
+		"name_ta": "நன்யாங் கேட்வே",
+		"title": "Nanyang Gateway MRT station",
+		"url": "/wiki/Nanyang_Gateway_MRT_station"
+	},
+	{
+		"codes": [
+			"JW4"
+		],
+		"name": "Nanyang Crescent",
+		"name_zh_Hans": "南洋弯",
+		"name_ta": "நன்யாங் க்ரெஸ்ஸன்",
+		"title": "Nanyang Crescent MRT station",
+		"url": "/wiki/Nanyang_Crescent_MRT_station"
+	},
+	{
+		"codes": [
+			"JW5"
+		],
+		"name": "Peng Kang Hill",
+		"name_zh_Hans": "秉光山",
+		"name_ta": "பெங் காங் ஹில்",
+		"title": "Peng Kang Hill MRT station",
+		"url": "/wiki/Peng_Kang_Hill_MRT_station"
+	},
+	{
+		"codes": [
+			"JE",
+			"CR18"
+		],
+		"name": "West Coast",
+		"name_zh_Hans": "西海岸",
+		"name_ta": "வெஸ்ட் கோஸ்ட்",
+		"title": "West Coast MRT station",
+		"url": "/wiki/West_Coast_MRT_station"
+	},
+	{
+		"codes": [
+			"CR2"
+		],
+		"name": "Aviation Park",
+		"name_zh_Hans": "航空园",
+		"name_ta": "ஏவியேஷன் பார்க்",
+		"title": "Aviation Park MRT station",
+		"url": "/wiki/Aviation_Park_MRT_station"
+	},
+	{
+		"codes": [
+			"CR3"
+		],
+		"name": "Loyang",
+		"name_zh_Hans": "罗央",
+		"name_ta": "லோயாங்",
+		"title": "Loyang MRT station",
+		"url": "/wiki/Loyang_MRT_station"
+	},
+	{
+		"codes": [
+			"CR4"
+		],
+		"name": "Pasir Ris East",
+		"name_zh_Hans": "巴西立东",
+		"name_ta": "பாசிர் ரிஸ் ஈஸ்ட்",
+		"title": "Pasir Ris East MRT station",
+		"url": "/wiki/Pasir_Ris_East_MRT_station"
+	},
+	{
+		"codes": [
+			"CR6"
+		],
+		"name": "Tampines North",
+		"name_zh_Hans": "淡滨尼北",
+		"name_ta": "தெம்பினிஸ் நார்த்",
+		"title": "Tampines North MRT station",
+		"url": "/wiki/Tampines_North_MRT_station"
+	},
+	{
+		"codes": [
+			"CR7"
+		],
+		"name": "Defu",
+		"name_zh_Hans": "德福",
+		"name_ta": "டெஃபு",
+		"title": "Defu MRT station",
+		"url": "/wiki/Defu_MRT_station"
+	},
+	{
+		"codes": [
+			"CR9"
+		],
+		"name": "Serangoon North",
+		"name_zh_Hans": "实龙岗北",
+		"name_ta": "சிராங்கூன் நார்த்",
+		"title": "Serangoon North MRT station",
+		"url": "/wiki/Serangoon_North_MRT_station"
+	},
+	{
+		"codes": [
+			"CR10"
+		],
+		"name": "Tavistock",
+		"name_zh_Hans": "达维士笃",
+		"name_ta": "தெவிஸ்தொக்",
+		"title": "Tavistock MRT station",
+		"url": "/wiki/Tavistock_MRT_station"
+	},
+	{
+		"codes": [
+			"CR12"
+		],
+		"name": "Teck Ghee",
+		"name_zh_Hans": "德义",
+		"name_ta": "டெக் கீ",
+		"title": "Teck Ghee MRT station",
+		"url": "/wiki/Teck_Ghee_MRT_station"
+	},
+	{
+		"codes": [
+			"CR14"
+		],
+		"name": "Turf City",
+		"name_zh_Hans": "马城",
+		"name_ta": "டர்ஃப் சிட்­டி­யில்",
+		"title": "Turf City MRT station",
+		"url": "/wiki/Turf_City_MRT_station"
+	},
+	{
+		"codes": [
+			"CR16"
+		],
+		"name": "Maju",
+		"name_zh_Hans": "马裕",
+		"name_ta": "மாஜு",
+		"title": "Maju MRT station",
+		"url": "/wiki/Maju_MRT_station"
+	},
+	{
+		"codes": [
+			"CR19"
+		],
+		"name": "Jurong Lake District",
+		"name_zh_Hans": "裕廊湖区",
+		"name_ta": "ஜூரோங் லேக் வட்­டா­ரம்",
+		"title": "Jurong Lake District MRT station",
+		"url": "/wiki/Jurong_Lake_District_MRT_station"
+	},
+	{
+		"codes": [
+			"CP2"
+		],
+		"name": "Elias",
+		"name_zh_Hans": "伊莱雅",
+		"name_ta": "இலியாஸ்",
+		"title": "Elias MRT station",
+		"url": "/wiki/Elias_MRT_station"
+	},
+	{
+		"codes": [
+			"CP3",
 			"PE4"
 		],
 		"name": "Riviera",

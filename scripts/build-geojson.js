@@ -21,10 +21,10 @@ const stationData = readFile(
   './data/raw/master-plan-2019-rail-station-layer-geojson.geojson',
 );
 const exitsData = readFile('./data/raw/Train_Station_Exit_Layer.json');
-const telExitsData = readFile('./data/raw/tel-exits.citymapper.json');
-const telLine = readFile('./data/raw/tel-line.json');
+// const telExitsData = readFile('./data/raw/tel-exits.citymapper.json');
+// const telLine = readFile('./data/raw/tel-line.json');
 const peLine = readFile('./data/raw/punggol-lrt-east-loop.json');
-const dtlLine = readFile('./data/raw/dtl-way.json');
+// const dtlLine = readFile('./data/raw/dtl-way.json');
 
 // https://github.com/darkskyapp/string-hash/
 function hash(str) {
@@ -251,15 +251,19 @@ const lines = routes
 
     let lines = diffPatterns.map((p) => p.path.map((c) => c.reverse()));
 
-    if (/thomson/i.test(long_name)) {
-      // Special case for TEL
-      lines = [telLine];
-    } else if (/punggol lrt \(east/i.test(long_name)) {
+    // if (/thomson/i.test(long_name)) {
+    //   // Special case for TEL
+    //   lines = [telLine];
+    // } else if (/punggol lrt \(east/i.test(long_name)) {
+    //   // Special case for PE
+    //   lines = peLine;
+    // } else if (/downtown/i.test(long_name)) {
+    //   // Special case for DTL
+    //   lines = dtlLine;
+    // }
+    if (/punggol lrt \(east/i.test(long_name)) {
       // Special case for PE
       lines = peLine;
-    } else if (/downtown/i.test(long_name)) {
-      // Special case for DTL
-      lines = dtlLine;
     }
 
     const props = {
@@ -295,8 +299,8 @@ const lines = routes
 
 // EXITS
 console.log('Generate Exits...');
-const tel3Stations =
-  /^(stevens|napier|orchard|great world|havelock|outram park|maxwell|shenton way|marina bay|gardens by the bay)/i;
+// const tel3Stations =
+//   /^(stevens|napier|orchard|great world|havelock|outram park|maxwell|shenton way|marina bay|gardens by the bay)/i;
 const exitsList = exitsData.features
   .map((f) => {
     const {
@@ -305,14 +309,15 @@ const exitsList = exitsData.features
     } = f;
     const exit_code = _exit_code.replace(/exit\s+?/i, '').toUpperCase();
     if (/^null/i.test(exit_code)) return;
-    if (tel3Stations.test(stn_name)) return; // Skip TEL3 stations. Exits have become 123 instead of ABC
+    // if (tel3Stations.test(stn_name)) return; // Skip TEL3 stations. Exits have become 123 instead of ABC
 
     let codes = stationName2Codes(stn_name);
+    if (!codes?.length) return;
 
-    if (codes.includes('NS9') && /[a-z]/i.test(exit_code)) {
-      // Deprecated in favor of 123s https://landtransportguru.net/woodlands-station/
-      return;
-    }
+    // if (codes.includes('NS9') && /[a-z]/i.test(exit_code)) {
+    //   // Deprecated in favor of 123s https://landtransportguru.net/woodlands-station/
+    //   return;
+    // }
 
     const joinedCodes = codes.join('-');
 
@@ -337,45 +342,45 @@ const exitsList = exitsData.features
     a.properties.station_codes.localeCompare(b.properties.station_codes),
   );
 
-const telExitsList = Object.entries(telExitsData)
-  .map(([stationName, exits]) => {
-    if (!tel3Stations.test(stationName)) return;
-    const stn_name = stationName;
-    return exits.map((exit) => {
-      const { indicator, coords } = exit;
-      const exit_code = indicator;
-      const geometry = {
-        type: 'Point',
-        coordinates: coords.reverse(),
-      };
+// const telExitsList = Object.entries(telExitsData)
+//   .map(([stationName, exits]) => {
+//     if (!tel3Stations.test(stationName)) return;
+//     const stn_name = stationName;
+//     return exits.map((exit) => {
+//       const { indicator, coords } = exit;
+//       const exit_code = indicator;
+//       const geometry = {
+//         type: 'Point',
+//         coordinates: coords.reverse(),
+//       };
 
-      let codes = stationName2Codes(stn_name);
+//       let codes = stationName2Codes(stn_name);
 
-      const joinedCodes = codes.join('-');
+//       const joinedCodes = codes.join('-');
 
-      const props = {
-        stop_type: 'entrance',
-        network: 'entrance',
-        name: exit_code.toUpperCase(),
-        // Custom
-        station_codes: joinedCodes,
-      };
-      const opts = {
-        id: hash(stn_name + exit_code),
-      };
-      const truncGeometry = truncate(geometry, {
-        coordinates: 2,
-      });
-      const e = feature(truncGeometry, props, opts);
-      return e;
-    });
-  })
-  .filter(Boolean)
-  .flat()
-  .sort((a, b) =>
-    a.properties.station_codes.localeCompare(b.properties.station_codes),
-  );
-const exits = [...exitsList, ...telExitsList];
+//       const props = {
+//         stop_type: 'entrance',
+//         network: 'entrance',
+//         name: exit_code.toUpperCase(),
+//         // Custom
+//         station_codes: joinedCodes,
+//       };
+//       const opts = {
+//         id: hash(stn_name + exit_code),
+//       };
+//       const truncGeometry = truncate(geometry, {
+//         coordinates: 2,
+//       });
+//       const e = feature(truncGeometry, props, opts);
+//       return e;
+//     });
+//   })
+//   .filter(Boolean)
+//   .flat()
+//   .sort((a, b) =>
+//     a.properties.station_codes.localeCompare(b.properties.station_codes),
+//   );
+const exits = [...exitsList /*, ...telExitsList*/];
 
 // STATION BUILDINGS
 console.log('Generate Station Buildings...');
@@ -387,6 +392,9 @@ const buildings = stationData.features
       properties: { Description },
       geometry,
     } = f;
+
+    // Exclude <Null> stations
+    if (/<Null>/i.test(Description)) return null;
 
     const centerPoint = centerOfMass(geometry);
     // nearestPoint retuns value in km unit
@@ -406,10 +414,10 @@ const buildings = stationData.features
     }
 
     if (!nearestStation) return null;
-    if (nearestStation.properties.station_codes === 'NS28') {
-      // Exclude Marina South station
-      return null;
-    }
+    // if (nearestStation.properties.station_codes === 'NS28') {
+    //   // Exclude Marina South station
+    //   return null;
+    // }
 
     const name = Description.match(
       /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,
