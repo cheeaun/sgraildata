@@ -23,7 +23,10 @@
       "features": {
         "filter": [
           "all",
-          ["==", ["geometry-type"], "LineString"],
+          ["any",
+            ["==", ["geometry-type"], "LineString"],
+            ["==", ["geometry-type"], "MultiLineString"]
+          ],
           ["has", "line_color"]
         ],
         "simplification": ["case", ["<", ["zoom"], 16], 4, 1]
@@ -48,7 +51,10 @@
       "features": {
         "filter": [
           "all",
-          ["==", ["geometry-type"], "Polygon"],
+          ["any",
+            ["==", ["geometry-type"], "Polygon"],
+            ["==", ["geometry-type"], "MultiPolygon"]
+          ],
           ["==", ["get", "type"], "subway"]
         ]
       }

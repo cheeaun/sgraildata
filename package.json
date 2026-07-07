@@ -1,6 +1,6 @@
 {
   "name": "sgraildata",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "description": "Singapore Rail data",
   "keywords": [
     "singapore",
@@ -24,7 +24,8 @@
     "cheerio": "~1.0.0-rc.10",
     "color-namer": "~1.4.0",
     "dotenv": "~10.0.0",
-    "got": "~11.8.2"
+    "got": "~11.8.2",
+    "proj4": "^2.20.9",
+    "shapefile": "^0.6.6"
   }
-
 }

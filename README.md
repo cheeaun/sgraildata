@@ -28,6 +28,7 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
   - Run `node scripts/fetch-mrt-wikipedia`
   - Run `node scripts/fetch-lrt-wikipedia`
 - Train Station Exit Point: https://datamall.lta.gov.sg/content/datamall/en/search_datasets.html?searchText=Train%20Station%20Exit%20Point (convert from `SHP` to `GeoJSON` - instructions below)
+  - Or run `node scripts/fetch-exit-layer` to automate download and conversion
 - LTA MRT Station Exit: https://data.gov.sg/collections/367/view
 - Master Plan 2019 Rail Station layer: https://data.gov.sg/datasets/d_8d886e3a83934d7447acdf5bc6959999/view
 ~~- Station codes: https://datamall.lta.gov.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip (convert from `SHP` to `JSON Records` - instructions below)~~

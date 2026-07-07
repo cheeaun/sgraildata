@@ -88,6 +88,16 @@ function stationName2Codes(name) {
           .filter((item, index, arr) => arr.indexOf(item) === index); // Remove dups
       }
     }
+
+    // Fallback: if name looks like a station code (e.g. "DT4", "CC9"), match by STN_NO
+    if (!codes.length && /^[a-z]{2}\d+$/i.test(cleanName)) {
+      const codeMatch = codesData.find((d) =>
+        d.STN_NO.split('/').map((s) => s.trim()).includes(cleanName.toUpperCase()),
+      );
+      if (codeMatch) {
+        codes = codeMatch.STN_NO.split('/').map((s) => s.trim());
+      }
+    }
   }
 
   codes.sort(sortStationCodes);
@@ -151,7 +161,10 @@ const stations = Object.values(stops)
     // const codes = stationName2Codes(name);
     // const wikipedia = stationCodes2Wikipedia(codes);
     const wikipedia = stationName2Wikipedia(name);
-    if (!wikipedia) throw new Error(`No Wikipedia for ${name}`);
+    if (!wikipedia) {
+      console.warn(`Skipping ${name} — no Wikipedia data`);
+      return null;
+    }
     const { codes: _codes, title, name_zh_Hans, name_ta, url } = wikipedia;
     const codes = filterInvalidCodes(_codes).sort(sortStationCodes);
 
@@ -184,6 +197,7 @@ const stations = Object.values(stops)
     );
     return p;
   })
+  .filter(Boolean)
   .sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
 stationCodes.sort((a, b) => a.localeCompare(b));
@@ -212,12 +226,10 @@ const lines = routes
         if (
           sp1.join().includes(sp2.join()) ||
           sp1.join().includes(sp2.reverse().join()) ||
-          (diffStopPoints.includes(p2.stop_points[0].id.toLowerCase()) &&
-            diffStopPoints.includes(
-              p2.stop_points[p2.stop_points.length - 1].id.toLowerCase(),
-            ))
+          p2.stop_points.every((sp) =>
+            diffStopPoints.includes(sp.id.toLowerCase()),
+          )
         ) {
-          // console.log(p1.name, p2.name);
           // do nothing
         } else {
           ++addPattern;
@@ -239,17 +251,150 @@ const lines = routes
         }
       }
       if (addPattern === diffPatterns.length) {
-        // console.log(
-        //   diffPatterns.map((p) => p.name),
-        //   p2.name,
-        // );
         diffPatterns.push(p2);
         diffStopPoints.push(...p2.stop_points.map((p) => p.id.toLowerCase()));
       }
     }
-    // console.log({ long_name, diffPatterns });
 
-    let lines = diffPatterns.map((p) => p.path.map((c) => c.reverse()));
+    // Merge overlapping patterns into a single line
+    while (diffPatterns.length > 1) {
+      let merged = false;
+      for (let i = 0; i < diffPatterns.length && !merged; i++) {
+        for (let j = i + 1; j < diffPatterns.length && !merged; j++) {
+          const pA = diffPatterns[i];
+          const pB = diffPatterns[j];
+          const stopsA = pA.stop_points.map((sp) => sp.id.toLowerCase());
+          const stopsB = pB.stop_points.map((sp) => sp.id.toLowerCase());
+
+          // Find longest consecutive shared section
+          let best = { len: 0 };
+          for (let a = 0; a < stopsA.length; a++) {
+            for (let b = 0; b < stopsB.length; b++) {
+              let len = 0;
+              while (
+                a + len < stopsA.length &&
+                b + len < stopsB.length &&
+                stopsA[a + len] === stopsB[b + len]
+              ) {
+                len++;
+              }
+              if (len > best.len) best = { len, a, b };
+            }
+          }
+
+          if (best.len >= 2) {
+            const { a, b, len } = best;
+
+            // Build merged stop order that includes ALL unique stops
+            // from both patterns, in correct loop order
+            const sharedA = pA.stop_points.slice(a, a + len);
+            const suffixA = pA.stop_points.slice(a + len);
+            const suffixB = pB.stop_points.slice(b + len);
+
+            // Suffix B may loop back to prefix stops - trim it
+            const prefixAIds = new Set(
+              pA.stop_points.slice(0, a).map((sp) => sp.id.toLowerCase()),
+            );
+            const trimmedSuffixB = [];
+            for (const sp of suffixB) {
+              if (prefixAIds.has(sp.id.toLowerCase())) break;
+              trimmedSuffixB.push(sp);
+            }
+
+            // Merged order: prefixA + shared + suffixA + trimmedSuffixB
+            const mergedStopPoints = [
+              ...pA.stop_points.slice(0, a),
+              ...sharedA,
+              ...suffixA,
+              ...trimmedSuffixB,
+            ];
+
+            // Build path coords:
+            // When both patterns diverge after shared section, create MultiLineString
+            // (e.g. Circle Line: main loop + DGH spur both branch from PROM)
+            const pathA = pA.path;
+            const pathB = pB.path;
+
+            if (suffixA.length > 0 && trimmedSuffixB.length > 0) {
+              // Both patterns have unique sections after shared - MultiLineString
+              // (e.g. Circle Line: main loop + DGH spur both branch from PROM)
+
+              // Main loop: P1's full path (KEP→...→PROM→BAY→MAR→PR→CAN→KEP)
+              const mainLoopCoords = [...pathB];
+
+              // Spur: start from PROM coord on main loop, then go to ESP→BB→DGH
+              const promPathIdxB = pB.stop_points[b + len - 1].path_index;
+              const promCoord = pathB[promPathIdxB];
+              // Find nearest coord on main loop to PROM (exact branch point)
+              let nearestIdx = 0, nearestDist = Infinity;
+              for (let k = 0; k < mainLoopCoords.length; k++) {
+                const dx = mainLoopCoords[k][0] - promCoord[0];
+                const dy = mainLoopCoords[k][1] - promCoord[1];
+                const d = dx * dx + dy * dy;
+                if (d < nearestDist) { nearestDist = d; nearestIdx = k; }
+              }
+              // Spur = PROM point from main loop + P0 suffix (ESP→BB→DGH)
+              const spurSuffixStart = pA.stop_points[a + len - 1].path_index;
+              const spurSuffixEnd = pA.stop_points[a + len - 1 + suffixA.length].path_index;
+              const spurSuffix = pathA.slice(spurSuffixStart + 1, spurSuffixEnd + 1).map((c) => [...c]);
+              const spurCoords = [[...mainLoopCoords[nearestIdx]], ...spurSuffix];
+
+              diffPatterns[i] = {
+                ...pA,
+                stop_points: mergedStopPoints,
+                path: mainLoopCoords,
+                _multiLine: [mainLoopCoords, spurCoords],
+              };
+              diffPatterns.splice(j, 1);
+              merged = true;
+            } else {
+              // Single line merge (original logic)
+              const pathAEnd =
+                suffixA.length > 0
+                  ? pA.stop_points[a + len - 1 + suffixA.length].path_index
+                  : pA.stop_points[a + len - 1].path_index;
+              const pathASegment = pathA.slice(0, pathAEnd + 1);
+
+              const sharedEndPathIdx = pB.stop_points[b + len - 1].path_index;
+              const pathBEnd =
+                trimmedSuffixB.length > 0
+                  ? b + len + trimmedSuffixB.length < pB.stop_points.length
+                    ? pB.stop_points[b + len + trimmedSuffixB.length].path_index
+                    : pathB.length
+                  : pathB.length;
+              const pathBSegment = pathB.slice(sharedEndPathIdx, pathBEnd + 1);
+
+              const mergedPath = [...pathASegment, ...pathBSegment];
+
+              diffPatterns[i] = {
+                ...pA,
+                stop_points: mergedStopPoints,
+                path: mergedPath,
+              };
+              diffPatterns.splice(j, 1);
+              merged = true;
+            }
+          }
+        }
+      }
+      if (!merged) break;
+    }
+
+    let lines = [];
+    for (const p of diffPatterns) {
+      if (p._multiLine) {
+        // MultiLineString: each entry is a separate LineString
+        for (const coords of p._multiLine) {
+          lines.push(coords.map((c) => [...c].reverse()));
+        }
+      } else {
+        lines.push(p.path.map((c) => [...c].reverse()));
+      }
+    }
+
+    if (/circle/i.test(long_name)) {
+      console.log('DEBUG CC: diffPatterns=' + diffPatterns.length + ' lines=' + lines.length + ' coords=' + lines.map(l => l.length).join(','));
+    }
 
     // if (/thomson/i.test(long_name)) {
     //   // Special case for TEL
@@ -282,16 +427,32 @@ const lines = routes
     if (lines.length === 1) {
       l = lineString(chaikin(lines[0], 3), props, opts);
     } else {
-      l = multiLineString(
-        lines.map((l) => chaikin(l, 3)),
-        props,
-        opts,
-      );
+      let smoothedLines = lines.map((l) => chaikin(l, 3));
+      l = multiLineString(smoothedLines, props, opts);
     }
-    return truncate(
+    const result = truncate(
       simplify(l, { tolerance: 0.000005, highQuality: true, mutate: true }),
       { mutate: true },
     );
+    // For multi-line: ensure junction coord is shared between main line and spur
+    if (result.geometry.type === 'MultiLineString' && result.geometry.coordinates.length > 1) {
+      const mainLine = result.geometry.coordinates[0];
+      const spurLine = result.geometry.coordinates[1];
+      if (mainLine.length > 0 && spurLine.length > 0) {
+        const spurStart = spurLine[0];
+        let mi = 0, md = Infinity;
+        for (let i = 0; i < mainLine.length; i++) {
+          const dx = mainLine[i][0] - spurStart[0];
+          const dy = mainLine[i][1] - spurStart[1];
+          const d = dx * dx + dy * dy;
+          if (d < md) { md = d; mi = i; }
+        }
+        if (md < 0.005) {
+          mainLine[mi] = [...spurStart];
+        }
+      }
+    }
+    return result;
   })
   .sort((a, b) => a.properties.name.localeCompare(b.properties.name));
 
@@ -389,12 +550,40 @@ const stationsCollection = featureCollection(stations);
 const buildings = stationData.features
   .map((f) => {
     const {
-      properties: { Description },
+      properties,
       geometry,
     } = f;
 
-    // Exclude <Null> stations
-    if (/<Null>/i.test(Description)) return null;
+    // Handle both old format (Description with HTML) and new format (structured properties)
+    let name, isAboveGround;
+
+    if (properties.Description) {
+      // Old format: parse HTML Description
+      if (/<Null>/i.test(properties.Description)) return null;
+      const nameMatch = properties.Description.match(
+        /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,
+      );
+      if (!nameMatch) return null;
+      name = nameMatch[2].toLowerCase();
+      const groundLevel = properties.Description.match(
+        />((under|above)ground)</i,
+      );
+      isAboveGround = groundLevel ? groundLevel[1].toLowerCase() === 'aboveground' : true;
+    } else if (properties.NAME || properties.INC_CRC) {
+      // New format: structured properties from data.gov.sg
+      // Fall back to INC_CRC when NAME is missing — some polygons in the
+      // Master Plan layer (e.g. unnamed entrance boxes) have NAME: null but
+      // are still real station buildings; nearestPoint below will assign
+      // them to the nearest station by proximity.
+      // Skip polygons explicitly marked "<Null>" — these are reserved plots
+      // for planned stations that were deferred/cancelled (e.g. Marina
+      // South on the deferred TEL extension).
+      if (properties.NAME === '<Null>') return null;
+      name = (properties.NAME || properties.INC_CRC || '').toLowerCase();
+      isAboveGround = properties.GRND_LEVEL === 'ABOVEGROUND';
+    } else {
+      return null;
+    }
 
     const centerPoint = centerOfMass(geometry);
     // nearestPoint retuns value in km unit
@@ -414,20 +603,6 @@ const buildings = stationData.features
     }
 
     if (!nearestStation) return null;
-    // if (nearestStation.properties.station_codes === 'NS28') {
-    //   // Exclude Marina South station
-    //   return null;
-    // }
-
-    const name = Description.match(
-      /(NAME|INC_CRC)<\/th>\s+<td>([^<>]*)<\/td/i,
-    )[2].toLowerCase();
-    // console.log({ name, distanceToPoint });
-
-    const groundLevel = Description.match(
-      />((under|above)ground)</i,
-    )[1].toLowerCase();
-    const isAboveGround = groundLevel === 'aboveground';
 
     const props = {
       station_codes: nearestStation.properties.station_codes,

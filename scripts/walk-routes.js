@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { ONEMAP_TOKEN, MAPBOX_ACCESS_TOKEN } = process.env;
+const { ONEMAP_TOKEN, ONEMAP_EMAIL, ONEMAP_PASSWORD, MAPBOX_ACCESS_TOKEN } = process.env;
 
 const { readFile, writeFile } = require('../utils');
 const distance = require('@turf/distance').default;
@@ -77,8 +77,34 @@ function getExitsForStation(codes) {
 function timeout(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
+let authToken = ONEMAP_TOKEN;
+
+async function fetchOneMapToken() {
+  if (!ONEMAP_EMAIL || !ONEMAP_PASSWORD) {
+    throw new Error('ONEMAP_EMAIL and ONEMAP_PASSWORD must be set in .env');
+  }
+  const response = await fetch(
+    'https://www.onemap.gov.sg/api/auth/post/getToken',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: ONEMAP_EMAIL, password: ONEMAP_PASSWORD }),
+    },
+  );
+  const data = await response.json();
+  if (data.error) throw new Error(data.error);
+  if (!data.access_token) throw new Error('No access_token in response');
+  const expiryDate = new Date(data.expiry_timestamp);
+  console.log(`OneMap token refreshed, expires ${expiryDate.toISOString()}`);
+  return data.access_token;
+}
+
 const exitPairs = [];
 (async () => {
+  if (!authToken) {
+    console.log('No ONEMAP_TOKEN found, fetching fresh token...');
+    authToken = await fetchOneMapToken();
+  }
   for (let i = 0, l = nearbyStationsPair.length; i < l; i++) {
     const [p1, p2] = nearbyStationsPair[i];
     const e1 = getExitsForStation(p1.properties.station_codes);
@@ -117,7 +143,7 @@ const exitPairs = [];
 
         const response = await fetch(url, {
           headers: {
-            'Authorization': `${ONEMAP_TOKEN}`
+            'Authorization': `${authToken}`
           }
         });
         const body = await response.json();

@@ -71,11 +71,13 @@
 
     async function loadGeoJSONData() {
       try {
-        const response = await fetch('./data/v1/sg-rail.geojson');
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return await response.json();
+        const [railRes, walksRes] = await Promise.all([
+          fetch('./data/v1/sg-rail.geojson'),
+          fetch('./data/v1/sg-rail-walks.geojson')
+        ]);
+        if (!railRes.ok) throw new Error(`HTTP error! status: ${railRes.status}`);
+        if (!walksRes.ok) throw new Error(`HTTP error! status: ${walksRes.status}`);
+        return { rail: await railRes.json(), walks: await walksRes.json() };
       } catch (error) {
         throw new Error('Failed to load GeoJSON file. Please serve this HTML file via HTTP server (not file://) or use the embedded version.');
       }
@@ -125,6 +127,12 @@
       if (props.name) {
         content += `<h4 style="margin: 0 0 10px 0; color: #333;">${props.name}</h4>`;
       }
+      if (props.station_codes_1) {
+        content += `<p style="margin: 5px 0;"><strong>Walk:</strong> ${props.station_codes_1} ${props.exit_name_1 || ''} → ${props.station_codes_2} ${props.exit_name_2 || ''}</p>`;
+        if (props.duration_min) {
+          content += `<p style="margin: 5px 0;"><strong>Duration:</strong> ~${props.duration_min} min</p>`;
+        }
+      }
       if (props.stop_type) {
         const typeLabel = props.stop_type === 'station' ? 'Station' : 'Exit/Entrance';
         content += `<p style="margin: 5px 0;"><strong>Type:</strong> ${typeLabel}</p>`;
@@ -138,7 +146,7 @@
       content += '<div style="margin-top: 10px; font-size: 11px; color: #666;">';
       content += '<strong>All Properties:</strong><br>';
       for (const [key, value] of Object.entries(props)) {
-        if (!['name', 'stop_type', 'station_colors', 'line_color'].includes(key)) {
+        if (!['name', 'stop_type', 'station_colors', 'line_color', 'station_codes_1', 'station_codes_2', 'exit_name_1', 'exit_name_2', 'duration_min'].includes(key)) {
           content += `${key}: ${value}<br>`;
         }
       }
@@ -149,11 +157,15 @@
     map.on('idle', () => {
       if (map.getSource('stations')) return; // Prevent duplicate loading
       loadGeoJSONData()
-        .then(data => {
+        .then(({ rail, walks }) => {
           document.getElementById('loading').style.display = 'none';
 
+          const data = rail;
+          const walkLineFeatures = walks.features.filter(f => f.geometry.type === 'LineString');
+          const walkPointFeatures = walks.features.filter(f => f.geometry.type === 'Point');
+
           const lineFeatures = data.features.filter(f => f.geometry.type === 'LineString' || f.geometry.type === 'MultiLineString');
-          const polygonFeatures = data.features.filter(f => f.geometry.type === 'Polygon');
+          const polygonFeatures = data.features.filter(f => f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon');
           const exitFeatures = data.features.filter(f => f.geometry.type === 'Point' && f.properties.stop_type === 'entrance');
           const stationFeatures = data.features.filter(f => f.geometry.type === 'Point' && f.properties.stop_type === 'station');
 
@@ -184,6 +196,47 @@
                 'line-color': '#A23B72',
                 'line-width': 1,
                 'line-opacity': 0.8
+              }
+            });
+          }
+
+          if (walkLineFeatures.length > 0) {
+            map.addSource('walks', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: walkLineFeatures }
+            });
+            map.addLayer({
+              id: 'walks',
+              type: 'line',
+              source: 'walks',
+              paint: {
+                'line-color': '#4A90D9',
+                'line-width': 2,
+                'line-dasharray': [2, 2],
+                'line-opacity': 0.7
+              },
+              layout: {
+                'line-cap': 'round',
+                'line-join': 'round'
+              }
+            });
+          }
+
+          if (walkPointFeatures.length > 0) {
+            map.addSource('walk-points', {
+              type: 'geojson',
+              data: { type: 'FeatureCollection', features: walkPointFeatures }
+            });
+            map.addLayer({
+              id: 'walk-points',
+              type: 'circle',
+              source: 'walk-points',
+              paint: {
+                'circle-radius': 5,
+                'circle-color': '#4A90D9',
+                'circle-stroke-color': '#ffffff',
+                'circle-stroke-width': 1.5,
+                'circle-opacity': 0.85
               }
             });
           }
@@ -328,7 +381,8 @@
             Exits: ${exitCount}<br>
             Lines: ${lineCount}<br>
             Polygons: ${polygonCount}<br>
-            Total: ${stationCount + exitCount + lineCount + polygonCount}
+            Walks: ${walkLineFeatures.length}<br>
+            Total: ${stationCount + exitCount + lineCount + polygonCount + walkLineFeatures.length}
           `;
 
           if (data.features && data.features.length > 0) {
@@ -338,8 +392,12 @@
                 bounds.extend(feature.geometry.coordinates);
               } else if (feature.geometry.type === 'LineString') {
                 feature.geometry.coordinates.forEach(coord => bounds.extend(coord));
+              } else if (feature.geometry.type === 'MultiLineString') {
+                feature.geometry.coordinates.forEach(line => line.forEach(coord => bounds.extend(coord)));
               } else if (feature.geometry.type === 'Polygon') {
                 feature.geometry.coordinates[0].forEach(coord => bounds.extend(coord));
+              } else if (feature.geometry.type === 'MultiPolygon') {
+                feature.geometry.coordinates.forEach(polygon => polygon[0].forEach(coord => bounds.extend(coord)));
               }
             });
 
@@ -348,7 +406,7 @@
 
           // Priority-based click handling: stations > exits > lines > polygons
           map.on('click', (e) => {
-            const layerPriority = ['stations-interchange', 'stations-regular', 'exits', 'lines', 'polygons'];
+            const layerPriority = ['stations-interchange', 'stations-regular', 'exits', 'lines', 'walk-points', 'walks', 'polygons'];
 
             for (const layerId of layerPriority) {
               if (map.getLayer(layerId)) {
@@ -365,7 +423,7 @@
           });
 
           // Hover effects for all interactive layers
-          ['polygons', 'lines', 'exits', 'stations'].forEach(layerId => {
+          ['polygons', 'lines', 'walks', 'exits', 'stations', 'walk-points'].forEach(layerId => {
             if (map.getLayer(layerId)) {
               map.on('mouseenter', layerId, () => {
                 map.getCanvas().style.cursor = 'pointer';

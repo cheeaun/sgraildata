@@ -3,45 +3,54 @@ const cheerio = require('cheerio');
 
 const data = [];
 
-fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_LRT_stations', {
+fetch('https://en.wikipedia.org/wiki/List_of_Singapore_LRT_stations', {
   responseType: 'text',
 }).then((res) => {
   const $ = cheerio.load(res.body);
-  const $td1s = $('#mf-section-1 .wikitable tr td:first-child');
+  // Wikipedia changed section IDs from #mf-section-N to data-mw-section-id="N"
+  const $section = $('[data-mw-section-id="1"]');
+  const $table = $section.find('table.wikitable').first();
+  const $rows = $table.find('tr');
 
-  $td1s.each((i, tdFirst) => {
-    const $tdFirst = $(tdFirst);
-    if ($tdFirst.attr('colspan')) return;
-    const $codes = $tdFirst.find('b');
+  const names = [];
+  $rows.each((i, row) => {
+    const $cells = $(row).find('th, td');
+    if ($cells.length < 4) return; // Skip header/sub-header rows
 
-    // Only care about current stations, not future ones
-    // If first column is empty, means it's a future station
-    if ($codes.length) {
-      const codes = $codes
-        .map((i, el) => $(el).text().trim())
-        .get()
-        .sort();
+    // Station name is in first cell (could be th or td)
+    const $nameCell = $cells.eq(0);
+    const name = $nameCell.text().trim();
+    if (!name || names.includes(name)) return;
 
-      let $td1 = $tdFirst.next('td');
-      if ($td1.attr('rowspan')) {
-        $td1 = $td1.next('td');
-      }
+    // Check for TBA in the row (future stations)
+    if ($(row).text().includes('TBA')) return;
 
-      const $a = $td1.find('a');
-      const url = $a.length ? $a.attr('href') : null;
-      const title =
-        $a.length && $a.attr('title') ? $a.attr('title').trim() : null;
-      const name = $td1.text().trim();
+    // New structure: Cell 0=Name, 1=Chinese, 2=Tamil, 3=Code
+    // But some rows have fewer cells due to rowspan
+    const $codeCell = $cells.eq(3);
+    const $codes = $codeCell.find('b');
+    if (!$codes.length) return;
 
-      const $td2 = $td1.next('td');
-      const name_zh_Hans = $td2.text().trim();
+    const codes = $codes
+      .map((i, el) => $(el).text().trim())
+      .get()
+      .sort();
 
-      const $td3 = $td2.next('td');
-      const name_ta = $td3.text().trim();
+    const $a = $nameCell.find('a');
+    const url = $a.length ? $a.attr('href').replace(/^\/\/en\.wikipedia\.org/, '') : null;
+    const title =
+      $a.length && $a.attr('title') ? $a.attr('title').trim() : null;
 
-      data.push({ codes, name, name_zh_Hans, name_ta, title, url });
-    }
+    const $zhCell = $cells.eq(1);
+    const name_zh_Hans = $zhCell.text().trim();
+
+    const $taCell = $cells.eq(2);
+    const name_ta = $taCell.text().trim();
+
+    data.push({ codes, name, name_zh_Hans, name_ta, title, url });
+    names.push(name);
   });
 
   writeFile('./data/raw/wikipedia-lrt.json', data);
+  console.log(`Fetched ${data.length} LRT stations from Wikipedia`);
 });
