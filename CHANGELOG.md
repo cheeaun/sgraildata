@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.1 (8 July 2026)
+
+- Fix TEL line alignment
+
 ## 5.0.0 (7 July 2026)
 
 - Add Circle Line Stage 6 stations (Keppel CC30, Cantonment CC31, Prince Edward Road CC32)

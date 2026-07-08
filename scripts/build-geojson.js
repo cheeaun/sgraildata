@@ -22,7 +22,7 @@ const stationData = readFile(
 );
 const exitsData = readFile('./data/raw/Train_Station_Exit_Layer.json');
 // const telExitsData = readFile('./data/raw/tel-exits.citymapper.json');
-// const telLine = readFile('./data/raw/tel-line.json');
+const telLine = readFile('./data/raw/tel-line.json');
 const peLine = readFile('./data/raw/punggol-lrt-east-loop.json');
 // const dtlLine = readFile('./data/raw/dtl-way.json');
 
@@ -396,17 +396,31 @@ const lines = routes
       console.log('DEBUG CC: diffPatterns=' + diffPatterns.length + ' lines=' + lines.length + ' coords=' + lines.map(l => l.length).join(','));
     }
 
-    // if (/thomson/i.test(long_name)) {
-    //   // Special case for TEL
-    //   lines = [telLine];
-    // } else if (/punggol lrt \(east/i.test(long_name)) {
-    //   // Special case for PE
-    //   lines = peLine;
-    // } else if (/downtown/i.test(long_name)) {
-    //   // Special case for DTL
-    //   lines = dtlLine;
-    // }
-    if (/punggol lrt \(east/i.test(long_name)) {
+    if (/thomson/i.test(long_name)) {
+      // Merge OSM tel-line.json (TEL1-3, detailed OSM way coords) with
+      // CityMapper path data for the remaining TEL4-5 segment.
+      // OSM: Woodlands North → Gardens by the Bay (349 coords, [lon, lat])
+      // CM:  Woodlands North → Bayshore (249 coords, already [lon, lat] after .reverse())
+      const cmCoords = lines[0];
+      const osmCoords = telLine;
+
+      // Find CityMapper index nearest to the last OSM coordinate (Gardens by the Bay)
+      const osmEnd = osmCoords[osmCoords.length - 1];
+      let nearestIdx = cmCoords.length - 1;
+      let nearestDistSq = Infinity;
+      for (let i = 0; i < cmCoords.length; i++) {
+        const dx = cmCoords[i][0] - osmEnd[0];
+        const dy = cmCoords[i][1] - osmEnd[1];
+        const d = dx * dx + dy * dy;
+        if (d < nearestDistSq) {
+          nearestDistSq = d;
+          nearestIdx = i;
+        }
+      }
+
+      const merged = [...osmCoords, ...cmCoords.slice(nearestIdx + 1)];
+      lines = [merged];
+    } else if (/punggol lrt \(east/i.test(long_name)) {
       // Special case for PE
       lines = peLine;
     }
