@@ -41,7 +41,7 @@
 	},
 	{
 		"codes": [
-			"CE1",
+			"CC34",
 			"DT16"
 		],
 		"name": "Bayfront",
@@ -275,6 +275,16 @@
 		"name_ta": "கென்பரா",
 		"title": "Canberra MRT station",
 		"url": "/wiki/Canberra_MRT_station"
+	},
+	{
+		"codes": [
+			"CC31"
+		],
+		"name": "Cantonment",
+		"name_zh_Hans": "广东民",
+		"name_ta": "கெண்டொன்மன்",
+		"title": "Cantonment MRT station",
+		"url": "/wiki/Cantonment_MRT_station"
 	},
 	{
 		"codes": [
@@ -666,6 +676,16 @@
 	},
 	{
 		"codes": [
+			"CC30"
+		],
+		"name": "Keppel",
+		"name_zh_Hans": "吉宝",
+		"name_ta": "கெப்பல்",
+		"title": "Keppel MRT station",
+		"url": "/wiki/Keppel_MRT_station"
+	},
+	{
+		"codes": [
 			"NS14"
 		],
 		"name": "Khatib",
@@ -779,7 +799,7 @@
 	{
 		"codes": [
 			"NS27",
-			"CE2",
+			"CC33",
 			"TE20"
 		],
 		"name": "Marina Bay",
@@ -1012,6 +1032,16 @@
 		"name_ta": "போத்தோங் பாசிர்",
 		"title": "Potong Pasir MRT station",
 		"url": "/wiki/Potong_Pasir_MRT_station"
+	},
+	{
+		"codes": [
+			"CC32"
+		],
+		"name": "Prince Edward Road",
+		"name_zh_Hans": "爱德华太子路",
+		"name_ta": "பிரின்ஸ் எட்வர்ட் ரோடு",
+		"title": "Prince Edward Road MRT station",
+		"url": "/wiki/Prince_Edward_Road_MRT_station"
 	},
 	{
 		"codes": [
@@ -1461,35 +1491,5 @@
 		"name_ta": "யீஷூன்",
 		"title": "Yishun MRT station",
 		"url": "/wiki/Yishun_MRT_station"
-	},
-	{
-		"codes": [
-			"CC31"
-		],
-		"name": "Cantonment",
-		"name_zh_Hans": "广东民",
-		"name_ta": "கெண்டொன்மன்",
-		"title": "Cantonment MRT station",
-		"url": "/wiki/Cantonment_MRT_station"
-	},
-	{
-		"codes": [
-			"CC30"
-		],
-		"name": "Keppel",
-		"name_zh_Hans": "吉宝",
-		"name_ta": "கெப்பல்",
-		"title": "Keppel MRT station",
-		"url": "/wiki/Keppel_MRT_station"
-	},
-	{
-		"codes": [
-			"CC32"
-		],
-		"name": "Prince Edward Road",
-		"name_zh_Hans": "爱德华太子路",
-		"name_ta": "பிரின்ஸ் எட்வர்ட் ரோடு",
-		"title": "Prince Edward Road MRT station",
-		"url": "/wiki/Prince_Edward_Road_MRT_station"
 	}
 ]
