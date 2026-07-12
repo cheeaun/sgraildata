@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.1.0 (12 July 2026)
+
+- Rename CE1/CE2 station codes to CC34/CC33
+
 ## 5.0.1 (8 July 2026)
 
 - Fix TEL line alignment
