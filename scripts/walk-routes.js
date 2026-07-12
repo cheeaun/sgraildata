@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { ONEMAP_TOKEN, ONEMAP_EMAIL, ONEMAP_PASSWORD, MAPBOX_ACCESS_TOKEN } = process.env;
+const { ONEMAP_EMAIL, ONEMAP_PASSWORD, MAPBOX_ACCESS_TOKEN } = process.env;
 
 const { readFile, writeFile } = require('../utils');
 const distance = require('@turf/distance').default;
@@ -77,7 +77,7 @@ function getExitsForStation(codes) {
 function timeout(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
-let authToken = ONEMAP_TOKEN;
+let authToken;
 
 async function fetchOneMapToken() {
   if (!ONEMAP_EMAIL || !ONEMAP_PASSWORD) {
@@ -94,17 +94,14 @@ async function fetchOneMapToken() {
   const data = await response.json();
   if (data.error) throw new Error(data.error);
   if (!data.access_token) throw new Error('No access_token in response');
-  const expiryDate = new Date(data.expiry_timestamp);
+  const expiryDate = new Date(data.expiry_timestamp * 1000);
   console.log(`OneMap token refreshed, expires ${expiryDate.toISOString()}`);
   return data.access_token;
 }
 
 const exitPairs = [];
 (async () => {
-  if (!authToken) {
-    console.log('No ONEMAP_TOKEN found, fetching fresh token...');
-    authToken = await fetchOneMapToken();
-  }
+  authToken = await fetchOneMapToken();
   for (let i = 0, l = nearbyStationsPair.length; i < l; i++) {
     const [p1, p2] = nearbyStationsPair[i];
     const e1 = getExitsForStation(p1.properties.station_codes);
@@ -147,6 +144,10 @@ const exitPairs = [];
           }
         });
         const body = await response.json();
+        if (!body.route_summary) {
+          console.warn(`    ⚠️ No route found, skipping...`);
+          continue;
+        }
         const {
           route_geometry,
           route_summary: { total_distance: d, total_time: duration },
